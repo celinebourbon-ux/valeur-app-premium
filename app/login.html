@@ -40,7 +40,6 @@
       overflow: hidden;
     }
 
-    /* AMBIENT LIGHTS */
     .ambient-light {
       position: fixed;
       width: 600px;
@@ -81,7 +80,6 @@
       50% { box-shadow: 0 0 50px rgba(201, 168, 76, 0.6); }
     }
 
-    /* LOGIN CONTAINER */
     .login-container {
       position: relative;
       z-index: 10;
@@ -282,7 +280,6 @@
       <div id="errorMsg" class="error-message"></div>
       <div id="successMsg" class="success-message"></div>
 
-      <!-- LOGIN FORM -->
       <form id="loginForm">
         <div class="form-group">
           <label class="form-label" for="loginEmail">Email</label>
@@ -309,7 +306,6 @@
 
       <div class="divider">ou</div>
 
-      <!-- SIGNUP FORM (hidden) -->
       <form id="signupForm" style="display: none;">
         <div class="form-group">
           <label class="form-label" for="signupName">Prénom</label>
@@ -371,7 +367,6 @@
 
     let isLoginMode = true;
 
-    // TOGGLE MODE
     toggleLink.addEventListener('click', () => {
       isLoginMode = !isLoginMode;
       
@@ -390,7 +385,6 @@
       hideMessages();
     });
 
-    // LOGIN
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideMessages();
@@ -398,16 +392,10 @@
       const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
 
-      // Simple validation (pour MVP, pas de vrai backend auth)
       if (email && password.length >= 6) {
-        // Sauvegarder session
         localStorage.setItem('valeur_current_user', email);
-        
-        // Récupérer ou créer profil
         const name = localStorage.getItem(`valeur_${email}_name`) || email.split('@')[0];
-        
         showSuccess('✓ Connexion réussie ! Redirection...');
-        
         setTimeout(() => {
           window.location.href = 'index.html';
         }, 1000);
@@ -416,7 +404,6 @@
       }
     });
 
-    // SIGNUP
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideMessages();
@@ -426,7 +413,6 @@
       const password = document.getElementById('signupPassword').value;
 
       if (name && email && password.length >= 8) {
-        // Sauvegarder profil
         localStorage.setItem('valeur_current_user', email);
         localStorage.setItem(`valeur_${email}_name`, name);
         localStorage.setItem(`valeur_${email}_progress`, JSON.stringify({
@@ -436,7 +422,6 @@
         }));
         localStorage.setItem(`valeur_${email}_journal`, JSON.stringify([]));
 
-        // Sync Supabase
         try {
           await sb.from('patients').upsert({
             email: email,
@@ -449,7 +434,6 @@
         }
 
         showSuccess('✓ Compte créé ! Redirection...');
-        
         setTimeout(() => {
           window.location.href = 'index.html';
         }, 1000);
