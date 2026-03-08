@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Méthode V.A.L.E.U.R© - Libérez-vous des 7 masques qui empêchent d'être vous-même">
+    <title>V.A.L.E.U.R© - Les 7 peurs qui empêchent d'être soi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Particules dorées en arrière-plan -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation Premium -->
+    <nav class="nav-premium">
+        <div class="container">
+            <div class="logo-container">
+                <svg class="logo" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="35" class="logo-text">V.A.L.E.U.R©</text>
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="#methode" class="nav-link">La Méthode</a>
+                <a href="#quiz" class="nav-link">Le Quiz</a>
+                <a href="#offres" class="nav-link">Offres</a>
+                <a href="#" class="btn-premium btn-small">Se connecter</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge-premium">
+                    <span class="badge-icon">✨</span>
+                    Méthode scientifique validée
+                </div>
+                
+                <h1 class="hero-title">
+                    Les 7 peurs qui<br>
+                    <span class="gradient-text">empêchent d'être soi</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Découvrez les masques de protection qui vous éloignent de votre authenticité.<br>
+                    Libérez votre Nature Authentique en 6 étapes scientifiquement fondées.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="#quiz" class="btn-premium btn-large pulse">
+                        <span class="btn-icon">🎭</span>
+                        Découvre ton masque dominant
+                        <span class="btn-arrow">→</span>
+                    </a>
+                    <p class="cta-note">Quiz gratuit • 5 minutes • Résultats personnalisés</p>
+                </div>
+
+                <!-- Stats Premium -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Masques identifiés</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Étapes V.A.L.E.U.R©</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">90j</div>
+                        <div class="stat-label">Programme guidé</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <p>Défiler pour découvrir</p>
+        </div>
+    </section>
+
+    <!-- Section Les 7 Masques -->
+    <section id="methode" class="masques-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Comprendre</span>
+                <h2 class="section-title">Les 7 masques du Personâge</h2>
+                <p class="section-subtitle">
+                    Chaque masque cache une peur fondamentale et une valeur authentique.<br>
+                    Identifiez le vôtre pour commencer votre transformation.
+                </p>
+            </div>
+
+            <div class="masques-grid">
+                <div class="masque-card" data-color="#E74C3C">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #E74C3C, #C0392B);">🛡️</div>
+                    <h3 class="masque-name">ROUGE</h3>
+                    <p class="masque-peur">Peur de la mort / maladie</p>
+                    <p class="masque-desc">Hypervigilance, vérification obsessionnelle des symptômes</p>
+                </div>
+
+                <div class="masque-card" data-color="#E67E22">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #E67E22, #D35400);">🚫</div>
+                    <h3 class="masque-name">ORANGE</h3>
+                    <p class="masque-peur">Peur de la souffrance</p>
+                    <p class="masque-desc">Évitement émotionnel, fuite dans l'action</p>
+                </div>
+
+                <div class="masque-card" data-color="#F1C40F">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #F1C40F, #F39C12);">⚡</div>
+                    <h3 class="masque-name">JAUNE</h3>
+                    <p class="masque-peur">Peur de l'incertitude</p>
+                    <p class="masque-desc">Besoin de contrôle, anxiété anticipatoire</p>
+                </div>
+
+                <div class="masque-card" data-color="#2ECC71">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #2ECC71, #27AE60);">💚</div>
+                    <h3 class="masque-name">VERT</h3>
+                    <p class="masque-peur">Peur du rejet</p>
+                    <p class="masque-desc">People-pleasing, difficulté à dire non</p>
+                </div>
+
+                <div class="masque-card" data-color="#3498DB">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #3498DB, #2980B9);">🔒</div>
+                    <h3 class="masque-name">BLEU</h3>
+                    <p class="masque-peur">Peur de l'impuissance</p>
+                    <p class="masque-desc">Sur-contrôle, rigidité mentale</p>
+                </div>
+
+                <div class="masque-card" data-color="#8E44AD">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #8E44AD, #7D3C98);">🎯</div>
+                    <h3 class="masque-name">INDIGO</h3>
+                    <p class="masque-peur">Peur de l'échec</p>
+                    <p class="masque-desc">Perfectionnisme paralysant, auto-sabotage</p>
+                </div>
+
+                <div class="masque-card" data-color="#9B59B6">
+                    <div class="masque-icon" style="background: linear-gradient(135deg, #9B59B6, #8E44AD);">👤</div>
+                    <h3 class="masque-name">VIOLET</h3>
+                    <p class="masque-peur">Peur de perdre son identité</p>
+                    <p class="masque-desc">Rigidité identitaire, résistance au changement</p>
+                </div>
+            </div>
+
+            <div class="cta-center">
+                <a href="#quiz" class="btn-premium">
+                    Identifier mon masque dominant
+                    <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Méthode V.A.L.E.U.R -->
+    <section class="methode-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">La Méthode</span>
+                <h2 class="section-title">V.A.L.E.U.R© en 6 étapes</h2>
+                <p class="section-subtitle">
+                    Une approche scientifique fondée sur les neurosciences,<br>
+                    la théorie polyvagale et la pleine conscience.
+                </p>
+            </div>
+
+            <div class="etapes-container">
+                <div class="etape-card">
+                    <div class="etape-number">01</div>
+                    <div class="etape-letter">V</div>
+                    <h3 class="etape-title">Voir le déclencheur</h3>
+                    <p class="etape-desc">Identifiez précisément les situations qui activent vos masques de protection</p>
+                </div>
+
+                <div class="etape-card">
+                    <div class="etape-number">02</div>
+                    <div class="etape-letter">A</div>
+                    <h3 class="etape-title">Accueillir les émotions</h3>
+                    <p class="etape-desc">Régulation du système nerveux via cohérence cardiaque et pleine conscience</p>
+                </div>
+
+                <div class="etape-card">
+                    <div class="etape-number">03</div>
+                    <div class="etape-letter">L</div>
+                    <h3 class="etape-title">Localiser dans le corps</h3>
+                    <p class="etape-desc">Scanner corporel pour identifier où se manifeste la tension émotionnelle</p>
+                </div>
+
+                <div class="etape-card">
+                    <div class="etape-number">04</div>
+                    <div class="etape-letter">E</div>
+                    <h3 class="etape-title">Explorer le conflit</h3>
+                    <p class="etape-desc">Dialogue avec le masque pour découvrir la valeur cachée</p>
+                </div>
+
+                <div class="etape-card">
+                    <div class="etape-number">05</div>
+                    <div class="etape-letter">U</div>
+                    <h3 class="etape-title">Unifier masque & valeur</h3>
+                    <p class="etape-desc">Créer un pont entre sécurité et authenticité</p>
+                </div>
+
+                <div class="etape-card">
+                    <div class="etape-number">06</div>
+                    <div class="etape-letter">R</div>
+                    <h3 class="etape-title">Renforcer par l'action</h3>
+                    <p class="etape-desc">Micro-actions quotidiennes pour ancrer la transformation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Premium -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <svg class="logo-footer" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="35" class="logo-text">V.A.L.E.U.R©</text>
+                    </svg>
+                    <p class="footer-tagline">Libérez votre authenticité</p>
+                </div>
+                
+                <div class="footer-copyright">
+                    <p>© 2026 Méthode V.A.L.E.U.R© — Céline Bourbon, Psychologue</p>
+                    <p>Tous droits réservés • <a href="#">Mentions légales</a> • <a href="#">CGV</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
