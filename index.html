@@ -75,6 +75,11 @@
       50% { transform: translateY(-8px) scale(1.03); }
     }
 
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
     .fade-in-up {
       animation: fadeInUp 0.8s ease both;
     }
@@ -375,6 +380,139 @@
       height: 400px;
       background: radial-gradient(circle, rgba(201, 168, 76, 0.2) 0%, transparent 70%);
       pointer-events: none;
+    }
+
+    /* ═══ QUIZ RAPIDE ═══ */
+    .quiz-section {
+      background: var(--navy-mid);
+      padding: 80px 0;
+    }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--navy-card);
+      border: 1px solid var(--gold);
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .quiz-header h2 {
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .quiz-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .quiz-progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      justify-content: center;
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--navy-border);
+      transition: all 0.3s ease;
+    }
+
+    .progress-dot.active {
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    .quiz-question {
+      display: none;
+      animation: slideIn 0.5s ease;
+    }
+
+    .quiz-question.active {
+      display: block;
+    }
+
+    .quiz-question h3 {
+      font-size: 24px;
+      color: var(--cream);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-option {
+      background: var(--navy-mid);
+      border: 2px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      color: var(--text-light);
+      text-align: left;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.05);
+      transform: translateX(4px);
+    }
+
+    .quiz-option.selected {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    .quiz-result {
+      display: none;
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .quiz-result.active {
+      display: block;
+    }
+
+    .result-emoji {
+      font-size: 80px;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .result-title {
+      font-size: 32px;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .result-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .result-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     /* ═══ SECTION TAGS ═══ */
@@ -877,6 +1015,10 @@
         padding: 64px 0;
       }
 
+      .quiz-container {
+        padding: 32px 24px;
+      }
+
       .hero-stats {
         gap: 20px;
       }
@@ -914,6 +1056,10 @@
         width: 100%;
         max-width: 300px;
       }
+
+      .result-cta {
+        flex-direction: column;
+      }
     }
 
     /* ═══ SCROLL REVEAL ═══ */
@@ -945,7 +1091,7 @@
         <a href="#masques" class="nav-link">Les 7 peurs</a>
         <a href="#methode" class="nav-link">La méthode</a>
         <a href="#offres" class="nav-link">Offres</a>
-        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-gold btn-sm" target="_blank">Commencer →</a>
+        <a href="#quiz" class="btn-gold btn-sm">Quiz rapide →</a>
       </div>
       <button class="nav-burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -972,10 +1118,10 @@
       </p>
 
       <div class="hero-cta">
-        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-gold btn-lg" target="_blank">
+        <a href="#quiz" class="btn-gold btn-lg">
           <span>🎭</span> Découvrir ma peur dominante
         </a>
-        <p class="cta-hint">Quiz gratuit · 5 min · Résultat immédiat</p>
+        <p class="cta-hint">Quiz express · 3 questions · Résultat instantané</p>
       </div>
 
       <div class="hero-stats">
@@ -997,6 +1143,71 @@
     </div>
     <div class="hero-glow"></div>
   </header>
+
+  <!-- ═══ QUIZ RAPIDE ═══ -->
+  <section id="quiz" class="quiz-section">
+    <div class="container">
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <h2>Quel masque portes-tu ?</h2>
+          <p>3 questions pour identifier ta peur dominante</p>
+        </div>
+
+        <div class="quiz-progress">
+          <div class="progress-dot active" data-q="1"></div>
+          <div class="progress-dot" data-q="2"></div>
+          <div class="progress-dot" data-q="3"></div>
+        </div>
+
+        <div id="quizQuestions">
+          <!-- Question 1 -->
+          <div class="quiz-question active" data-q="1">
+            <h3>Dans une situation stressante, tu as tendance à :</h3>
+            <div class="quiz-options">
+              <div class="quiz-option" data-score="rouge:3,jaune:1">Surveiller ton corps et tes sensations physiques</div>
+              <div class="quiz-option" data-score="orange:3,vert:1">Éviter d'y penser et rester actif·ve</div>
+              <div class="quiz-option" data-score="jaune:3,bleu:1">Tout anticiper pour garder le contrôle</div>
+              <div class="quiz-option" data-score="vert:3,violet:1">Te mettre en retrait pour ne déranger personne</div>
+              <div class="quiz-option" data-score="bleu:3,indigo:1">Tout gérer seul·e sans demander d'aide</div>
+              <div class="quiz-option" data-score="indigo:3,rouge:1">Repousser ou procrastiner</div>
+              <div class="quiz-option" data-score="violet:3,orange:1">T'accrocher à tes habitudes rassurantes</div>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="quiz-question" data-q="2">
+            <h3>Ce qui te fait le plus peur au fond :</h3>
+            <div class="quiz-options">
+              <div class="quiz-option" data-score="rouge:3">Être malade ou perdre la santé</div>
+              <div class="quiz-option" data-score="orange:3">Souffrir émotionnellement</div>
+              <div class="quiz-option" data-score="jaune:3">Ne pas savoir ce qui va arriver</div>
+              <div class="quiz-option" data-score="vert:3">Être rejeté·e ou seul·e</div>
+              <div class="quiz-option" data-score="bleu:3">Ne plus rien contrôler</div>
+              <div class="quiz-option" data-score="indigo:3">Échouer ou ne pas être à la hauteur</div>
+              <div class="quiz-option" data-score="violet:3">Ne plus savoir qui tu es</div>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="quiz-question" data-q="3">
+            <h3>Les autres diraient de toi que tu es :</h3>
+            <div class="quiz-options">
+              <div class="quiz-option" data-score="rouge:3">Vigilant·e, toujours à l'écoute de ton corps</div>
+              <div class="quiz-option" data-score="orange:3">Fort·e en apparence, mais tu fuis les émotions</div>
+              <div class="quiz-option" data-score="jaune:3">Organisé·e à l'extrême, tu anticipes tout</div>
+              <div class="quiz-option" data-score="vert:3">Gentil·le, toujours là pour les autres</div>
+              <div class="quiz-option" data-score="bleu:3">Indépendant·e, tu ne montres jamais ta faiblesse</div>
+              <div class="quiz-option" data-score="indigo:3">Perfectionniste ou procrastinateur·rice</div>
+              <div class="quiz-option" data-score="violet:3">Attaché·e à tes rôles et routines</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Résultat -->
+        <div id="quizResult" class="quiz-result"></div>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══ POURQUOI ═══ -->
   <section id="pourquoi" class="section">
@@ -1112,9 +1323,9 @@
 
       <div class="cta-center">
         <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-gold btn-lg" target="_blank">
-          Trouver mon masque dominant →
+          Faire le quiz complet →
         </a>
-        <p class="cta-hint">Quiz gratuit · Résultat personnalisé · 5 minutes</p>
+        <p class="cta-hint">Quiz approfondi · Analyse détaillée · 10 minutes</p>
       </div>
     </div>
   </section>
@@ -1291,7 +1502,81 @@
   </footer>
 
   <script>
-    // Navigation scroll effect
+    // ═══ QUIZ LOGIC ═══
+    const quizData = {
+      rouge: { score: 0, emoji: '🔴', name: 'ROUGE', title: 'Peur de la maladie', desc: 'Ton masque dominant te pousse à surveiller constamment ton corps. Tu vis dans l\'hypervigilance somatique. Ta valeur cachée : la sécurité.' },
+      orange: { score: 0, emoji: '🟠', name: 'ORANGE', title: 'Peur de souffrir', desc: 'Tu évites les émotions difficiles et restes toujours actif·ve pour ne pas ressentir. Évitement émotionnel permanent. Ta valeur cachée : la paix intérieure.' },
+      jaune: { score: 0, emoji: '🟡', name: 'JAUNE', title: 'Peur de l\'incertitude', desc: 'Tu dois tout anticiper et contrôler pour te sentir en sécurité. Obsession de contrôle absolue. Ta valeur cachée : la sérénité.' },
+      vert: { score: 0, emoji: '🟢', name: 'VERT', title: 'Peur du rejet', desc: 'Tu t\'effaces pour plaire et dis oui quand tu veux dire non. Insécurité relationnelle permanente. Ta valeur cachée : l\'appartenance.' },
+      bleu: { score: 0, emoji: '🔵', name: 'BLEU', title: 'Peur de l\'impuissance', desc: 'Tu dois tout maîtriser et ne montres jamais ta faiblesse. Hypercontrôle relationnel. Ta valeur cachée : l\'autonomie.' },
+      indigo: { score: 0, emoji: '🔷', name: 'INDIGO', title: 'Peur de l\'échec', desc: 'Parfait ou rien. Tu procrastines ou cherches la perfection absolue. Anxiété de performance constante. Ta valeur cachée : l\'excellence.' },
+      violet: { score: 0, emoji: '💜', name: 'VIOLET', title: 'Peur de perdre qui tu es', desc: 'Tu t\'accroches à des rôles devenus trop petits. Angoisse existentielle absolue. Ta valeur cachée : l\'identité.' }
+    };
+
+    let currentQuestion = 1;
+    const totalQuestions = 3;
+
+    // Gestion des clics sur les options
+    document.querySelectorAll('.quiz-option').forEach(option => {
+      option.addEventListener('click', function() {
+        // Marquer comme sélectionné
+        const parent = this.parentElement;
+        parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+
+        // Compter les scores
+        const scores = this.dataset.score.split(',');
+        scores.forEach(item => {
+          const [masque, points] = item.split(':');
+          quizData[masque].score += parseInt(points);
+        });
+
+        // Passer à la question suivante après 500ms
+        setTimeout(() => {
+          if (currentQuestion < totalQuestions) {
+            currentQuestion++;
+            document.querySelector('.quiz-question.active').classList.remove('active');
+            document.querySelector(`.quiz-question[data-q="${currentQuestion}"]`).classList.add('active');
+            document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+              if (i < currentQuestion) dot.classList.add('active');
+            });
+          } else {
+            showResult();
+          }
+        }, 500);
+      });
+    });
+
+    function showResult() {
+      // Trouver le masque dominant
+      let maxScore = 0;
+      let dominant = 'rouge';
+      for (const [masque, data] of Object.entries(quizData)) {
+        if (data.score > maxScore) {
+          maxScore = data.score;
+          dominant = masque;
+        }
+      }
+
+      const result = quizData[dominant];
+      const resultHTML = `
+        <span class="result-emoji">${result.emoji}</span>
+        <h2 class="result-title">Ton masque : ${result.title}</h2>
+        <p class="result-desc">${result.desc}</p>
+        <div class="result-cta">
+          <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-gold btn-lg" target="_blank">Quiz complet approfondi →</a>
+          <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-outline btn-lg" target="_blank">Commencer le programme →</a>
+        </div>
+      `;
+
+      document.getElementById('quizQuestions').style.display = 'none';
+      document.querySelector('.quiz-progress').style.display = 'none';
+      const resultDiv = document.getElementById('quizResult');
+      resultDiv.innerHTML = resultHTML;
+      resultDiv.classList.add('active');
+    }
+
+    // ═══ NAVIGATION & SCROLL ═══
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('nav');
       if (window.scrollY > 50) {
