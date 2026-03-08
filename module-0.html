@@ -3,266 +3,230 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Module 0 : Comprendre — Introduction à la méthode V.A.L.E.U.R©">
   <title>Module 0 : Comprendre — V.A.L.E.U.R©</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Premium Design System -->
+  <link rel="stylesheet" href="assets/styles-premium.css">
+  
+  <!-- React -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
   <style>
-    :root {
-      --navy: #0a0f1a;
-      --navy-mid: #111827;
-      --navy-card: #1a2235;
-      --navy-border: #2a3650;
-      --gold: #c9a84c;
-      --gold-dark: #a07830;
-      --gold-light: #e8d08c;
-      --cream: #f7f3ee;
-      --text-light: #e2e8f0;
-      --text-muted: #94a3b8;
-      --rouge: #E74C3C;
-      --orange: #E67E22;
-      --jaune: #F1C40F;
-      --vert: #2ECC71;
-      --bleu: #3498DB;
-      --indigo: #8E44AD;
-      --violet: #9B59B6;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--navy);
-      color: var(--text-light);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 700;
-      line-height: 1.2;
-      color: var(--cream);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    /* Styles spécifiques aux modules */
     .module-header {
       background: rgba(10, 15, 26, 0.95);
       backdrop-filter: blur(24px);
       border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-      padding: 20px 24px;
+      padding: 20px 0;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: var(--z-sticky);
     }
 
-    .header-inner {
+    .header-content {
       max-width: 900px;
       margin: 0 auto;
+      padding: 0 var(--space-lg);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .back-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      color: var(--text-muted);
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
-
-    .back-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(201, 168, 76, 0.1);
-    }
-
-    .module-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
+    .module-badge {
+      font-family: var(--font-serif);
+      font-size: var(--text-lg);
       font-weight: 700;
       color: var(--gold);
+      letter-spacing: 1px;
     }
 
-    .progress-container {
+    .progress-section {
       background: var(--navy-mid);
       border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-      padding: 12px 24px;
+      padding: var(--space-md) 0;
     }
 
-    .progress-inner {
+    .progress-content {
       max-width: 900px;
       margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    .progress-label {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 13px;
+      align-items: center;
+      font-size: var(--text-sm);
       color: var(--text-muted);
-      margin-bottom: 8px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .progress-percent {
+      color: var(--gold);
+      font-weight: 700;
     }
 
     .progress-bar {
-      max-width: 900px;
-      margin: 0 auto;
-      height: 6px;
+      height: 8px;
       background: rgba(201, 168, 76, 0.1);
-      border-radius: 10px;
+      border-radius: var(--radius-full);
       overflow: hidden;
+      position: relative;
     }
 
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--gold), var(--gold-light));
-      transition: width 0.5s ease;
-      box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+      transition: width var(--transition-smooth);
+      box-shadow: 0 0 10px var(--gold-glow);
     }
 
     .module-content {
       max-width: 900px;
       margin: 0 auto;
-      padding: 60px 24px 120px;
-      animation: fadeIn 0.6s ease;
+      padding: var(--space-3xl) var(--space-lg) 140px;
     }
 
     .hero-section {
       text-align: center;
-      margin-bottom: 64px;
-      animation: slideUp 0.6s ease;
+      margin-bottom: var(--space-3xl);
     }
 
-    .hero-badge {
+    .hero-label {
       display: inline-block;
       background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
       border: 1px solid rgba(201, 168, 76, 0.4);
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-size: 13px;
+      border-radius: var(--radius-full);
+      padding: 10px 24px;
+      font-size: var(--text-sm);
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 24px;
+      margin-bottom: var(--space-xl);
     }
 
     .hero-title {
-      font-size: clamp(36px, 6vw, 56px);
-      margin-bottom: 20px;
+      font-size: clamp(40px, 7vw, 64px);
+      margin-bottom: var(--space-lg);
       color: var(--cream);
+      line-height: 1.1;
     }
 
-    .hero-subtitle {
-      font-size: 20px;
+    .hero-description {
+      font-size: var(--text-xl);
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
       max-width: 700px;
       margin: 0 auto;
     }
 
     .content-section {
-      margin-bottom: 48px;
-      animation: slideUp 0.6s ease;
+      margin-bottom: var(--space-3xl);
     }
 
     .section-title {
-      font-size: 32px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: var(--space-xl);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: var(--space-md);
     }
 
     .section-title::before {
       content: '';
       width: 4px;
-      height: 32px;
+      height: 36px;
       background: linear-gradient(180deg, var(--gold), transparent);
       border-radius: 2px;
     }
 
     .text-block {
-      font-size: 17px;
+      font-size: var(--text-lg);
       line-height: 1.8;
       color: var(--text-light);
-      margin-bottom: 24px;
-    }
-
-    .text-block strong {
-      color: var(--cream);
-      font-weight: 600;
+      margin-bottom: var(--space-lg);
     }
 
     .highlight-box {
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), var(--navy-card));
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(26, 34, 53, 0.8));
       border-left: 4px solid var(--gold);
-      border-radius: 12px;
-      padding: 24px 28px;
-      margin: 32px 0;
-      font-style: italic;
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      margin: var(--space-2xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-box::before {
+      content: '💡';
+      position: absolute;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      font-size: 48px;
+      opacity: 0.15;
     }
 
     .highlight-box p {
-      font-size: 18px;
+      font-size: var(--text-lg);
       line-height: 1.7;
       color: var(--text-light);
+      position: relative;
+      margin-bottom: 0;
     }
 
-    .quote {
+    .quote-section {
       text-align: center;
-      font-size: 22px;
+      font-size: var(--text-2xl);
       font-style: italic;
       color: var(--gold-light);
-      margin: 48px 0;
+      margin: var(--space-3xl) 0;
       line-height: 1.6;
+      font-family: var(--font-serif);
     }
 
-    .list-item {
+    .masque-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .masque-item {
       background: var(--navy-card);
       border: 1px solid var(--navy-border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 16px;
-      transition: all 0.3s;
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: all var(--transition-base);
+      border-left: 4px solid var(--masque-color);
     }
 
-    .list-item:hover {
-      border-color: var(--gold);
+    .masque-item:hover {
+      border-color: var(--masque-color);
       transform: translateX(8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
 
-    .list-item h4 {
-      font-size: 20px;
-      margin-bottom: 8px;
-      color: var(--gold);
+    .masque-item h4 {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-sm);
+      color: var(--masque-color);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
     }
 
-    .list-item p {
-      font-size: 16px;
+    .masque-item p {
+      font-size: var(--text-base);
       color: var(--text-muted);
       line-height: 1.6;
+      margin-bottom: 0;
     }
 
     .footer-nav {
@@ -273,59 +237,42 @@
       background: rgba(10, 15, 26, 0.95);
       backdrop-filter: blur(24px);
       border-top: 1px solid rgba(201, 168, 76, 0.15);
-      padding: 20px 24px;
-      z-index: 100;
+      padding: var(--space-lg);
+      z-index: var(--z-sticky);
     }
 
-    .footer-inner {
+    .footer-content {
       max-width: 900px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-    }
-
-    .btn-nav {
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #000;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 32px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
-    }
-
-    .btn-nav:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(201, 168, 76, 0.5);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-    }
-
-    .btn-secondary:hover {
-      background: var(--gold);
-      color: #000;
+      gap: var(--space-md);
     }
 
     @media (max-width: 768px) {
-      .module-content {
-        padding: 40px 20px 100px;
+      .header-content,
+      .progress-content,
+      .module-content,
+      .footer-content {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
       }
 
-      .footer-inner {
+      .module-content {
+        padding-bottom: 160px;
+      }
+
+      .footer-content {
         flex-direction: column;
       }
 
-      .btn-nav {
-        width: 100%;
+      .section-title {
+        font-size: 28px;
+      }
+
+      .section-title::before {
+        height: 28px;
       }
     }
   </style>
@@ -348,6 +295,7 @@
         }
         setUser({ email });
 
+        // Track scroll progress
         const handleScroll = () => {
           const docHeight = document.documentElement.scrollHeight - window.innerHeight;
           const scrolled = window.scrollY;
@@ -379,95 +327,103 @@
         window.location.href = 'index.html';
       };
 
+      const goBack = () => {
+        window.location.href = 'index.html';
+      };
+
       return (
         <>
           <header className="module-header">
-            <div className="header-inner">
-              <a href="index.html" className="back-btn">
+            <div className="header-content">
+              <button className="btn btn-ghost btn-sm" onClick={goBack}>
                 ← Dashboard
-              </a>
-              <div className="module-number">MODULE 0</div>
+              </button>
+              <div className="module-badge">MODULE 0</div>
             </div>
           </header>
 
-          <div className="progress-container">
-            <div className="progress-inner">
-              <span>Progression du module</span>
-              <span style={{ color: 'var(--gold)', fontWeight: 700 }}>{Math.round(progress)}%</span>
-            </div>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+          <div className="progress-section">
+            <div className="progress-content">
+              <div className="progress-label">
+                <span>Progression du module</span>
+                <span className="progress-percent">{Math.round(progress)}%</span>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+              </div>
             </div>
           </div>
 
           <main className="module-content">
-            <div className="hero-section">
-              <div className="hero-badge">Module 0 : Introduction</div>
+            <div className="hero-section animate-slide-up">
+              <div className="hero-label">Module 0 : Introduction</div>
               <h1 className="hero-title">Comprendre</h1>
-              <p className="hero-subtitle">
+              <p className="hero-description">
                 Bienvenue dans la méthode V.A.L.E.U.R©. Tu es sur le point de découvrir pourquoi tu as développé l'anxiété, et comment t'en libérer définitivement.
               </p>
             </div>
 
-            <div className="content-section">
-              <h2 className="section-title">L’anxiété n'est pas une maladie</h2>
+            <div className="content-section animate-slide-up stagger-1">
+              <h2 className="section-title">L'anxiété n'est pas une maladie</h2>
               <p className="text-block">
-                <strong>Répète-toi cela :</strong> L’anxiété n'est pas une maladie. Ce n'est pas un dysfonctionnement de ton cerveau. Ce n'est pas "qui tu es". C'est une <strong>protection que ton cerveau a mise en place</strong> pour te protéger d'une peur profonde.
+                <strong>Répète-toi cela :</strong> L'anxiété n'est pas une maladie. Ce n'est pas un dysfonctionnement de ton cerveau. Ce n'est pas "qui tu es". C'est une <strong>protection que ton cerveau a mise en place</strong> pour te protéger d'une peur profonde.
               </p>
               <p className="text-block">
                 Cette peur, tu l'as vécue très tôt. Peut-être dans l'enfance. Peut-être même avant. Et ton cerveau, pour que tu ne souffres pas, a construit un <strong>masque protecteur</strong>. Un système de défense sophistiqué.
               </p>
             </div>
 
-            <div className="highlight-box">
+            <div className="highlight-box animate-slide-up stagger-2">
               <p>
-                💡 <strong>Clé n°1 :</strong> L’anxiété est la conséquence d'un masque que tu portes pour te protéger d'une peur oubliée. En enlevant le masque, l'anxiété disparaît.
+                <strong>Clé n°1 :</strong> L'anxiété est la conséquence d'un masque que tu portes pour te protéger d'une peur oubliée. En enlevant le masque, l'anxiété disparaît.
               </p>
             </div>
 
-            <div className="content-section">
+            <div className="content-section animate-slide-up stagger-3">
               <h2 className="section-title">Les 7 peurs universelles</h2>
               <p className="text-block">
                 Après 15 ans de pratique clinique avec des centaines de patients, j'ai identifié <strong>7 peurs fondamentales</strong> qui expliquent 90% des troubles anxieux. Chaque peur correspond à un masque protecteur.
               </p>
             </div>
 
-            <div className="list-item">
-              <h4 style={{ color: 'var(--rouge)' }}>🔴 Masque Rouge : Peur de la mort</h4>
-              <p>Tu as peur que quelque chose d'irréversible arrive. Crises d'angoisse, hypocondrie, peur de perdre le contrôle.</p>
+            <div className="masque-list">
+              <div className="masque-item" style={{ '--masque-color': 'var(--rouge)' }}>
+                <h4>🔴 Masque Rouge : Peur de la mort</h4>
+                <p>Tu as peur que quelque chose d'irréversible arrive. Crises d'angoisse, hypocondrie, peur de perdre le contrôle.</p>
+              </div>
+
+              <div className="masque-item" style={{ '--masque-color': 'var(--orange)' }}>
+                <h4>🟠 Masque Orange : Peur du conflit</h4>
+                <p>Tu évites les confrontations. Tu te tais pour ne pas déplaire. Anxiété sociale, peur du jugement.</p>
+              </div>
+
+              <div className="masque-item" style={{ '--masque-color': 'var(--jaune)' }}>
+                <h4>🟡 Masque Jaune : Peur de l'abandon</h4>
+                <p>Tu as peur d'être laissé·e seul·e. Tu donnes trop, tu t'oublies. Anxiété d'attachement, dépendance affective.</p>
+              </div>
+
+              <div className="masque-item" style={{ '--masque-color': 'var(--vert)' }}>
+                <h4>🟢 Masque Vert : Peur de la transgression</h4>
+                <p>Tu as peur de faire quelque chose de mal. Tu te sens coupable. TOC, ruminations, perfectionnisme moral.</p>
+              </div>
+
+              <div className="masque-item" style={{ '--masque-color': 'var(--bleu)' }}>
+                <h4>🔵 Masque Bleu : Peur de l'impuissance</h4>
+                <p>Tu as peur de ne pas y arriver. Tu anticipes l'échec. Procrastination, découragement chronique.</p>
+              </div>
+
+              <div className="masque-item" style={{ '--masque-color': 'var(--indigo)' }}>
+                <h4>🟣 Masque Indigo : Peur de l'imperfection</h4>
+                <p>Tu as peur de ne jamais être assez bien. Syndrome de l'imposteur, perfectionnisme paralysant.</p>
+              </div>
+
+              <div className="masque-item" style={{ '--masque-color': 'var(--violet)' }}>
+                <h4>🟣 Masque Violet : Peur de l'existence</h4>
+                <p>Tu remets en question le sens de tout. Anxiété existentielle, déréalisation, questionnements métaphysiques.</p>
+              </div>
             </div>
 
-            <div className="list-item">
-              <h4 style={{ color: 'var(--orange)' }}>🟠 Masque Orange : Peur du conflit</h4>
-              <p>Tu évites les confrontations. Tu te tais pour ne pas déplaire. Anxiété sociale, peur du jugement.</p>
-            </div>
-
-            <div className="list-item">
-              <h4 style={{ color: 'var(--jaune)' }}>🟡 Masque Jaune : Peur de l'abandon</h4>
-              <p>Tu as peur d'être laissé·e seul·e. Tu donnes trop, tu t'oublies. Anxiété d'attachement, dépendance affective.</p>
-            </div>
-
-            <div className="list-item">
-              <h4 style={{ color: 'var(--vert)' }}>🟢 Masque Vert : Peur de la transgression</h4>
-              <p>Tu as peur de faire quelque chose de mal. Tu te sens coupable. TOC, ruminations, perfectionnisme moral.</p>
-            </div>
-
-            <div className="list-item">
-              <h4 style={{ color: 'var(--bleu)' }}>🔵 Masque Bleu : Peur de l'impuissance</h4>
-              <p>Tu as peur de ne pas y arriver. Tu anticipes l'échec. Procrastination, découragement chronique.</p>
-            </div>
-
-            <div className="list-item">
-              <h4 style={{ color: 'var(--indigo)' }}>🟣 Masque Indigo : Peur de l'imperfection</h4>
-              <p>Tu as peur de ne jamais être assez bien. Syndrome de l'imposteur, perfectionnisme paralysant.</p>
-            </div>
-
-            <div className="list-item">
-              <h4 style={{ color: 'var(--violet)' }}>🟣 Masque Violet : Peur de l'existence</h4>
-              <p>Tu remets en question le sens de tout. Anxiété existentielle, déréalisation, questionnements métaphysiques.</p>
-            </div>
-
-            <p className="quote">
+            <p className="quote-section">
               "Ton anxiété protège ce qui compte le plus pour toi."
             </p>
 
@@ -487,17 +443,17 @@
 
             <div className="highlight-box">
               <p>
-                ✨ <strong>Engage-toi maintenant :</strong> Les 90 prochains jours vont changer ta vie. Pas besoin de violence. Pas besoin de forcing. Juste une compréhension profonde et une transformation progressive.
+                <strong>Engage-toi maintenant :</strong> Les 90 prochains jours vont changer ta vie. Pas besoin de violence. Pas besoin de forcing. Juste une compréhension profonde et une transformation progressive.
               </p>
             </div>
           </main>
 
           <nav className="footer-nav">
-            <div className="footer-inner">
-              <button className="btn-nav btn-secondary" onClick={() => window.location.href = 'index.html'}>
+            <div className="footer-content">
+              <button className="btn btn-secondary" onClick={goBack}>
                 ← Dashboard
               </button>
-              <button className="btn-nav" onClick={handleComplete}>
+              <button className="btn btn-primary btn-lg" onClick={handleComplete}>
                 Terminer le module ✓
               </button>
             </div>
