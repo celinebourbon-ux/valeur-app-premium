@@ -52,7 +52,6 @@
       color: var(--cream);
     }
 
-    /* ANIMATIONS */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -63,7 +62,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* HEADER */
     .module-header {
       background: rgba(10, 15, 26, 0.95);
       backdrop-filter: blur(24px);
@@ -110,7 +108,6 @@
       color: var(--gold);
     }
 
-    /* PROGRESS */
     .progress-container {
       background: var(--navy-mid);
       border-bottom: 1px solid rgba(201, 168, 76, 0.15);
@@ -144,7 +141,6 @@
       box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
     }
 
-    /* CONTENT */
     .module-content {
       max-width: 900px;
       margin: 0 auto;
@@ -269,7 +265,6 @@
       line-height: 1.6;
     }
 
-    /* FOOTER NAV */
     .footer-nav {
       position: fixed;
       bottom: 0;
@@ -346,7 +341,6 @@
       const [user, setUser] = useState(null);
 
       useEffect(() => {
-        // Charger user
         const email = localStorage.getItem('valeur_current_user');
         if (!email) {
           window.location.href = 'login.html';
@@ -354,7 +348,6 @@
         }
         setUser({ email });
 
-        // Simuler progression au scroll
         const handleScroll = () => {
           const docHeight = document.documentElement.scrollHeight - window.innerHeight;
           const scrolled = window.scrollY;
@@ -369,7 +362,6 @@
       const handleComplete = () => {
         if (!user) return;
 
-        // Sauvegarder progression
         const savedProgress = JSON.parse(localStorage.getItem(`valeur_${user.email}_progress`) || '{}');
         const completed = savedProgress.completed || [];
         
@@ -384,13 +376,11 @@
           localStorage.setItem(`valeur_${user.email}_progress`, JSON.stringify(newProgress));
         }
 
-        // Redirection dashboard
         window.location.href = 'index.html';
       };
 
       return (
         <>
-          {/* HEADER */}
           <header className="module-header">
             <div className="header-inner">
               <a href="index.html" className="back-btn">
@@ -400,7 +390,6 @@
             </div>
           </header>
 
-          {/* PROGRESS */}
           <div className="progress-container">
             <div className="progress-inner">
               <span>Progression du module</span>
@@ -411,7 +400,6 @@
             </div>
           </div>
 
-          {/* CONTENT */}
           <main className="module-content">
             <div className="hero-section">
               <div className="hero-badge">Module 0 : Introduction</div>
@@ -504,7 +492,6 @@
             </div>
           </main>
 
-          {/* FOOTER NAV */}
           <nav className="footer-nav">
             <div className="footer-inner">
               <button className="btn-nav btn-secondary" onClick={() => window.location.href = 'index.html'}>
