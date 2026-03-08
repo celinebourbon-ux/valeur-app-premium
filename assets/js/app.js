@@ -1,94 +1,102 @@
-// V.A.L.E.U.R© App - Main JavaScript
+/* V.A.L.E.U.R© — App JS Premium
+   © 2026 Céline Bourbon, Psychologue
+   Tous droits réservés. Reproduction interdite. */
 
-// Smooth scroll pour les liens d'ancrage
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
+'use strict';
 
-// Animation au scroll pour les cartes
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, observerOptions);
-
-// Appliquer l'animation aux cartes
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.masque-card, .etape-card, .stat-card');
-  cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-  });
-});
-
-// Navigation: changement de style au scroll
-let lastScroll = 0;
-const nav = document.querySelector('.nav-premium');
-
+/* ── Navigation scroll effect ── */
+const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  
-  if (currentScroll > 100) {
-    nav.style.background = 'rgba(13, 17, 23, 0.95)';
-    nav.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-  } else {
-    nav.style.background = 'rgba(13, 17, 23, 0.85)';
-    nav.style.boxShadow = 'none';
-  }
-  
-  lastScroll = currentScroll;
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── Burger menu mobile ── */
+const burger = document.getElementById('burger');
+const navLinks = document.querySelector('.nav-links');
+if (burger && navLinks) {
+  burger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '64px';
+    navLinks.style.left = '0'; navLinks.style.right = '0';
+    navLinks.style.background = 'rgba(11,15,26,0.98)';
+    navLinks.style.padding = '20px';
+    navLinks.style.gap = '16px';
+    navLinks.style.borderBottom = '1px solid rgba(212,175,55,0.12)';
+  });
+}
+
+/* ── Reveal animations au scroll ── */
+const revealElements = document.querySelectorAll(
+  '.masque-card, .why-card, .etape, .stat, .offre-card'
+);
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.addEventListener('DOMContentLoaded', () => {
+  revealElements.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = `opacity 0.55s ease ${i * 0.06}s, transform 0.55s ease ${i * 0.06}s`;
+    revealObs.observe(el);
+  });
 });
 
-// Protection contre le clic droit (copyright)
-document.addEventListener('contextmenu', (e) => {
-  e.preventDefault();
-});
-
-// Désactivation F12 et raccourcis dev tools
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12' || 
-      (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-      (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-      (e.ctrlKey && e.key === 'U')) {
+/* ── Smooth scroll nav ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
     e.preventDefault();
-  }
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (navLinks) navLinks.style.display = 'none';
+  });
 });
 
-// Watermark copyright invisible
-const addWatermark = () => {
-  const watermark = document.createElement('div');
-  watermark.textContent = '© V.A.L.E.U.R© - Céline Bourbon 2026';
-  watermark.style.cssText = `
-    position: fixed;
-    bottom: -100px;
-    right: -100px;
-    opacity: 0.01;
-    pointer-events: none;
-    font-size: 1px;
-  `;
-  document.body.appendChild(watermark);
-};
+/* ── Partage : copier le lien ── */
+function copyLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('copyBtn');
+    if (btn) {
+      btn.classList.add('copied');
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 13l4 4L19 7"/>
+        </svg>
+        Lien copié !`;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          Copier le lien`;
+      }, 3000);
+    }
+  }).catch(() => {
+    prompt('Copie ce lien :', url);
+  });
+}
+window.copyLink = copyLink;
 
-addWatermark();
+/* ── Protection copyright ── */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12') e.preventDefault();
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) e.preventDefault();
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'u') e.preventDefault();
+});
 
-console.log('%c© V.A.L.E.U.R© 2026 - Céline Bourbon, Psychologue', 'color: #D4AF37; font-size: 16px; font-weight: bold;');
-console.log('%cTous droits réservés. Reproduction interdite.', 'color: #8B949E; font-size: 12px;');
+/* ── Console signature ── */
+console.log('%c V.A.L.E.U.R© ', 'background:#D4AF37;color:#0B0F1A;font-size:18px;font-weight:bold;padding:4px 8px;border-radius:4px;');
+console.log('%c© 2026 Céline Bourbon, Psychologue — Tous droits réservés.', 'color:#8896A8;font-size:12px;');
