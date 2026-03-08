@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Se libérer des 7 peurs qui empêchent d'être soi — Méthode V.A.L.E.U.R© par Céline Bourbon, psychologue">
-  <title>V.A.L.E.U.R© — De la peur à la joie d'être soi</title>
+  <meta name="description" content="Programme scientifique validé pour se libérer de l'anxiété en 90 jours. Méthode V.A.L.E.U.R© — Neurosciences + Psychologie corporelle">
+  <title>V.A.L.E.U.R© — Enfin une vraie solution scientifique contre l'anxiété</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy: #0a0f1a;
@@ -16,6 +16,7 @@
       --navy-border: #2a3650;
       --gold: #c9a84c;
       --gold-dark: #a07830;
+      --gold-light: #e8d08c;
       --cream: #f7f3ee;
       --text-light: #e2e8f0;
       --text-muted: #94a3b8;
@@ -46,18 +47,18 @@
     h1, h2, h3 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
     /* ═══ ANIMATIONS ═══ */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
+      50% { transform: translateY(-15px); }
     }
 
     @keyframes shimmer {
@@ -66,22 +67,18 @@
     }
 
     @keyframes glow-pulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(201, 168, 76, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(201, 168, 76, 0.6); }
-    }
-
-    @keyframes orb-float {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.03); }
+      0%, 100% { box-shadow: 0 0 30px rgba(201, 168, 76, 0.4), 0 0 60px rgba(201, 168, 76, 0.2); }
+      50% { box-shadow: 0 0 50px rgba(201, 168, 76, 0.6), 0 0 100px rgba(201, 168, 76, 0.3); }
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
+      from { opacity: 0; transform: translateX(-30px); }
       to { opacity: 1; transform: translateX(0); }
     }
 
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease both;
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     /* ═══ LAYOUT ═══ */
@@ -92,34 +89,34 @@
     }
 
     .section {
-      padding: 100px 0;
+      padding: 120px 0;
       position: relative;
     }
 
     /* ═══ BACKGROUND EFFECTS ═══ */
     .ambient-light {
       position: fixed;
-      width: 600px;
-      height: 600px;
+      width: 700px;
+      height: 700px;
       border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.15;
+      filter: blur(140px);
+      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
     }
 
     .ambient-1 {
       background: var(--gold);
-      top: -200px;
-      right: -200px;
-      animation: float 15s ease-in-out infinite;
+      top: -250px;
+      right: -250px;
+      animation: float 18s ease-in-out infinite;
     }
 
     .ambient-2 {
       background: var(--violet);
-      bottom: -200px;
-      left: -200px;
-      animation: float 20s ease-in-out infinite 5s;
+      bottom: -250px;
+      left: -250px;
+      animation: float 22s ease-in-out infinite 5s;
     }
 
     .ambient-3 {
@@ -127,7 +124,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      animation: float 18s ease-in-out infinite 10s;
+      animation: float 20s ease-in-out infinite 10s;
     }
 
     /* ═══ NAVIGATION ═══ */
@@ -136,22 +133,23 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(10, 15, 26, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      background: rgba(10, 15, 26, 0.9);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
       z-index: 1000;
       transition: all 0.3s ease;
     }
 
     .nav.scrolled {
       background: rgba(10, 15, 26, 0.95);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border-bottom-color: rgba(201, 168, 76, 0.3);
     }
 
     .nav-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px 24px;
+      padding: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -159,17 +157,18 @@
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--gold);
       text-decoration: none;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
     }
 
-    .nav-links {
+    .nav-cta {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 16px;
     }
 
     .nav-link {
@@ -177,36 +176,14 @@
       text-decoration: none;
       font-size: 15px;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: all 0.2s;
+      padding: 8px 16px;
+      border-radius: 8px;
     }
 
     .nav-link:hover {
       color: var(--gold);
-    }
-
-    .nav-burger {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    .nav-burger span {
-      width: 24px;
-      height: 2px;
-      background: var(--gold);
-      transition: all 0.3s;
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      .nav-burger {
-        display: flex;
-      }
+      background: rgba(201, 168, 76, 0.1);
     }
 
     /* ═══ BUTTONS ═══ */
@@ -214,28 +191,44 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 14px 32px;
+      gap: 10px;
+      padding: 16px 40px;
       border-radius: 50px;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 17px;
       text-decoration: none !important;
       transition: all 0.3s ease;
       cursor: pointer;
       border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .btn:hover::before {
+      transform: translateX(100%);
     }
 
     .btn-gold {
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       color: #000 !important;
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
       text-decoration: none !important;
+      font-weight: 800;
+      letter-spacing: 0.5px;
     }
 
     .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(201, 168, 76, 0.5);
-      text-decoration: none !important;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 48px rgba(201, 168, 76, 0.6);
     }
 
     .btn-outline {
@@ -248,33 +241,42 @@
     .btn-outline:hover {
       background: var(--gold);
       color: #000 !important;
-      text-decoration: none !important;
+      transform: translateY(-2px);
     }
 
     .btn-lg {
-      padding: 18px 40px;
-      font-size: 18px;
+      padding: 20px 48px;
+      font-size: 19px;
     }
 
-    .btn-sm {
-      padding: 10px 20px;
-      font-size: 14px;
+    .btn-xl {
+      padding: 24px 56px;
+      font-size: 21px;
+      font-weight: 900;
     }
 
-    /* ═══ HERO ═══ */
+    /* ═══ HERO ULTRA PREMIUM ═══ */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 140px 24px 100px;
+      padding: 160px 24px 120px;
       position: relative;
       overflow: hidden;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
     .hero-inner {
-      max-width: 900px;
+      max-width: 1000px;
       position: relative;
       z-index: 10;
     }
@@ -282,283 +284,202 @@
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(201, 168, 76, 0.1);
-      border: 1px solid rgba(201, 168, 76, 0.3);
+      gap: 12px;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
+      border: 1px solid rgba(201, 168, 76, 0.4);
       border-radius: 50px;
-      padding: 8px 20px;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
+      padding: 10px 24px;
+      font-size: 14px;
+      color: var(--gold-light);
+      margin-bottom: 40px;
       animation: fadeInUp 0.8s ease 0.2s both;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .badge-dot {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: var(--gold);
       animation: glow-pulse 2s ease-in-out infinite;
     }
 
     .hero-h1 {
-      font-size: clamp(36px, 8vw, 72px);
+      font-size: clamp(42px, 9vw, 84px);
       color: var(--cream);
       margin-bottom: 32px;
       line-height: 1.1;
       animation: fadeInUp 0.8s ease 0.4s both;
+      font-weight: 700;
+      letter-spacing: -1px;
     }
 
-    .gold-shimmer {
-      background: linear-gradient(90deg, var(--gold) 0%, #fff 50%, var(--gold) 100%);
-      background-size: 200% auto;
+    .hero-h1 .highlight {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: shimmer 3s linear infinite;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border-radius: 2px;
     }
 
     .hero-sub {
-      font-size: clamp(16px, 3vw, 20px);
+      font-size: clamp(18px, 3.5vw, 24px);
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.6;
       margin-bottom: 48px;
       animation: fadeInUp 0.8s ease 0.6s both;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-sub strong {
       color: var(--text-light);
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .hero-cta {
+    .hero-cta-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
       animation: fadeInUp 0.8s ease 0.8s both;
-      margin-bottom: 48px;
+      margin-bottom: 56px;
     }
 
     .cta-hint {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
-      margin-top: 12px;
-    }
-
-    .hero-stats {
+      margin-top: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.8s ease 1s both;
+      gap: 8px;
     }
 
-    .stat {
+    .cta-hint svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--gold);
+    }
+
+    /* PROOF BADGES */
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 1s both;
+      margin-top: 64px;
+    }
+
+    .proof-item {
       text-align: center;
     }
 
-    .stat-n {
+    .proof-number {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
+      font-size: 56px;
       font-weight: 700;
       color: var(--gold);
       line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
     }
 
-    .stat-l {
-      font-size: 14px;
+    .proof-label {
+      font-size: 15px;
       color: var(--text-muted);
-      margin-top: 4px;
+      font-weight: 500;
     }
 
-    .stat-sep {
+    .proof-sep {
       width: 1px;
-      height: 40px;
-      background: var(--navy-border);
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--navy-border), transparent);
     }
 
-    .hero-glow {
-      position: absolute;
-      bottom: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.2) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ═══ QUIZ RAPIDE ═══ */
-    .quiz-section {
-      background: var(--navy-mid);
-      padding: 80px 0;
-    }
-
-    .quiz-container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: var(--navy-card);
-      border: 1px solid var(--gold);
-      border-radius: 24px;
-      padding: 48px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    .quiz-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .quiz-header h2 {
-      font-size: clamp(28px, 5vw, 42px);
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-
-    .quiz-header p {
-      color: var(--text-muted);
-      font-size: 16px;
-    }
-
-    .quiz-progress {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 32px;
-      justify-content: center;
-    }
-
-    .progress-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--navy-border);
-      transition: all 0.3s ease;
-    }
-
-    .progress-dot.active {
-      background: var(--gold);
-      box-shadow: 0 0 12px var(--gold);
-    }
-
-    .quiz-question {
-      display: none;
-      animation: slideIn 0.5s ease;
-    }
-
-    .quiz-question.active {
-      display: block;
-    }
-
-    .quiz-question h3 {
-      font-size: 24px;
-      color: var(--cream);
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .quiz-option {
-      background: var(--navy-mid);
-      border: 2px solid var(--navy-border);
-      border-radius: 16px;
+    /* ═══ URGENCE / SCARCITY BAND ═══ */
+    .urgence-band {
+      background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(201, 168, 76, 0.15));
+      border-top: 1px solid rgba(201, 168, 76, 0.3);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.3);
       padding: 20px 24px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 16px;
-      color: var(--text-light);
-      text-align: left;
-    }
-
-    .quiz-option:hover {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.05);
-      transform: translateX(4px);
-    }
-
-    .quiz-option.selected {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.1);
-    }
-
-    .quiz-result {
-      display: none;
       text-align: center;
-      animation: fadeInUp 0.8s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .quiz-result.active {
-      display: block;
+    .urgence-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+      animation: shimmer 3s linear infinite;
     }
 
-    .result-icon {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 24px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      border-radius: 50%;
+    .urgence-text {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold-light);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+      gap: 12px;
+      position: relative;
+      z-index: 1;
     }
 
-    .result-icon svg {
-      width: 60px;
-      height: 60px;
-      fill: #000;
+    .urgence-text svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--gold);
+      animation: glow-pulse 2s ease-in-out infinite;
     }
 
-    .result-title {
-      font-size: 32px;
-      color: var(--cream);
-      margin-bottom: 16px;
-    }
-
-    .result-desc {
-      font-size: 18px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 32px;
-    }
-
-    .result-cta {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* ═══ SECTION TAGS ═══ */
+    /* ═══ SECTION PREMIUM ═══ */
     .section-tag {
       display: inline-block;
-      background: rgba(201, 168, 76, 0.1);
-      border: 1px solid rgba(201, 168, 76, 0.3);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
+      border: 1px solid rgba(201, 168, 76, 0.4);
       border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 700;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 24px;
+      margin-bottom: 32px;
     }
 
     .section-h2 {
-      font-size: clamp(32px, 6vw, 56px);
+      font-size: clamp(36px, 7vw, 64px);
       color: var(--cream);
-      margin-bottom: 24px;
-      line-height: 1.2;
+      margin-bottom: 28px;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
     }
 
     .section-lead {
-      font-size: clamp(16px, 3vw, 20px);
+      font-size: clamp(17px, 3vw, 22px);
       color: var(--text-muted);
       line-height: 1.7;
-      max-width: 800px;
-      margin: 0 auto 64px;
+      max-width: 900px;
+      margin: 0 auto 80px;
     }
 
     .text-center {
@@ -566,266 +487,260 @@
     }
 
     .section-dark {
-      background: var(--navy-mid);
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%);
     }
 
-    /* ═══ POURQUOI SECTION ═══ */
-    .why-grid {
+    /* ═══ SCIENCE PROOF SECTION ═══ */
+    .science-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 32px;
-      margin-top: 64px;
+      margin-top: 80px;
     }
 
-    .why-card {
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
-      border-radius: 20px;
-      padding: 32px;
-      transition: all 0.3s ease;
+    .science-card {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid var(--gold);
+      border-radius: 24px;
+      padding: 40px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .why-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    .science-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.05) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
     }
 
-    .why-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 20px;
+    .science-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(201, 168, 76, 0.3);
+      border-color: var(--gold-light);
+    }
+
+    .science-card:hover::before {
+      opacity: 1;
+    }
+
+    .science-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 28px;
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: float 3s ease-in-out infinite;
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+      animation: float 4s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
     }
 
-    .why-icon svg {
-      width: 32px;
-      height: 32px;
+    .science-icon svg {
+      width: 40px;
+      height: 40px;
       fill: #000;
     }
 
-    .why-card h3 {
-      font-size: 24px;
+    .science-card h3 {
+      font-size: 26px;
       color: var(--cream);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
-    .why-card p {
+    .science-card p {
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ═══ MASQUES SECTION ═══ */
-    .masques-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      margin-top: 64px;
-      margin-bottom: 64px;
+    .science-stat {
+      display: inline-block;
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      margin-top: 12px;
     }
 
-    .masque-card {
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
-      border-radius: 24px;
-      overflow: hidden;
-      transition: all 0.4s ease;
+    /* ═══ TRANSFORMATION TIMELINE ═══ */
+    .timeline {
+      max-width: 900px;
+      margin: 80px auto 0;
       position: relative;
     }
 
-    .masque-card::before {
+    .timeline::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--mc) 0%, transparent 50%);
-      opacity: 0.05;
-      transition: opacity 0.4s;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      transform: translateX(-50%);
     }
 
-    .masque-card:hover::before {
-      opacity: 0.12;
-    }
-
-    .masque-card:hover {
-      border-color: var(--mc);
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .masque-orb {
-      width: 100%;
-      aspect-ratio: 1;
+    .timeline-item {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: orb-float 4s ease-in-out infinite;
-      border-bottom: 1px solid var(--navy-border);
+      gap: 40px;
+      margin-bottom: 80px;
+      position: relative;
     }
 
-    .masque-orb svg {
-      width: 64px;
-      height: 64px;
-      fill: var(--gold);
-      filter: drop-shadow(0 4px 12px rgba(201, 168, 76, 0.4));
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
     }
 
-    .masque-body {
-      padding: 24px;
-    }
-
-    .masque-color-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-
-    .masque-card h3 {
-      font-size: 22px;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-
-    .masque-card p {
-      color: var(--text-muted);
-      line-height: 1.6;
-      font-size: 15px;
-      margin-bottom: 16px;
-    }
-
-    .masque-valeur {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 20px;
-      border: 1px solid;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* ═══ MÉTHODE SECTION ═══ */
-    .etapes {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      max-width: 900px;
-      margin: 64px auto 0;
-    }
-
-    .etape {
-      display: flex;
-      align-items: flex-start;
-      gap: 24px;
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
+    .timeline-content {
+      flex: 1;
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid rgba(201, 168, 76, 0.3);
       border-radius: 20px;
       padding: 32px;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
-    .etape:hover {
-      border-color: var(--ec);
-      transform: translateX(8px);
-      box-shadow: -4px 0 0 var(--ec), 0 8px 24px rgba(0, 0, 0, 0.3);
+    .timeline-content:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px rgba(201, 168, 76, 0.2);
     }
 
-    .etape-letter {
+    .timeline-number {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 56px;
+      font-size: 48px;
       font-weight: 700;
+      color: var(--gold);
       line-height: 1;
-      flex-shrink: 0;
+      margin-bottom: 12px;
     }
 
-    .etape-content h3 {
+    .timeline-content h3 {
       font-size: 24px;
       color: var(--cream);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
-    .etape-content p {
+    .timeline-content p {
       color: var(--text-muted);
       line-height: 1.7;
     }
 
-    /* ═══ OFFRES SECTION ═══ */
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: var(--gold);
+      border-radius: 50%;
+      border: 4px solid var(--navy);
+      box-shadow: 0 0 20px var(--gold);
+      z-index: 10;
+    }
+
+    /* ═══ OFFRES PREMIUM ═══ */
     .offres-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 32px;
-      max-width: 1000px;
-      margin: 64px auto 0;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 40px;
+      max-width: 1100px;
+      margin: 80px auto 0;
     }
 
     .offre-card {
-      background: var(--navy-card);
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
       border: 2px solid var(--navy-border);
-      border-radius: 24px;
-      padding: 40px;
+      border-radius: 28px;
+      padding: 48px;
       position: relative;
       transition: all 0.4s ease;
     }
 
     .offre-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
     }
 
-    .offre-autonome {
+    .offre-premium {
       border-color: var(--gold);
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.05) 0%, var(--navy-card) 50%);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), var(--navy-card));
+      box-shadow: 0 0 60px rgba(201, 168, 76, 0.2);
     }
 
     .offre-badge {
       position: absolute;
-      top: -12px;
+      top: -16px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--gold);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       color: #000;
-      padding: 6px 20px;
+      padding: 8px 24px;
       border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
     }
 
     .offre-title {
-      font-size: 28px;
+      font-size: 32px;
       color: var(--cream);
       margin-bottom: 16px;
-      margin-top: 8px;
+      margin-top: 12px;
     }
 
     .offre-desc {
       color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 24px;
+      line-height: 1.75;
+      margin-bottom: 28px;
+      font-size: 16px;
     }
 
     .offre-price {
       margin-bottom: 32px;
+      padding: 24px;
+      background: rgba(201, 168, 76, 0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .price-strike {
+      font-size: 18px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      display: block;
+      margin-bottom: 8px;
     }
 
     .price-amount {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
+      font-size: 56px;
       font-weight: 700;
       color: var(--gold);
       display: block;
       line-height: 1;
+      text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
     }
 
     .price-note {
       font-size: 14px;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 8px;
       display: block;
     }
 
@@ -836,192 +751,248 @@
 
     .offre-features li {
       color: var(--text-light);
-      padding: 12px 0;
-      border-bottom: 1px solid var(--navy-border);
-      font-size: 15px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .offre-features li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      font-weight: 900;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     .offre-features li:last-child {
       border-bottom: none;
     }
 
-    /* ═══ LIVRE SECTION ═══ */
-    .livre-section {
-      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 100%);
-    }
-
-    .livre-inner {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 64px;
-      align-items: center;
-    }
-
-    .livre-visual {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .livre-mock {
-      position: relative;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .livre-cover {
-      width: 280px;
-      height: 400px;
-      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
-      border: 3px solid var(--gold);
-      border-radius: 12px;
-      padding: 40px 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+    /* ═══ GUARANTEE BOX ═══ */
+    .guarantee-box {
+      background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(201, 168, 76, 0.1));
+      border: 2px solid var(--vert);
+      border-radius: 20px;
+      padding: 32px;
+      margin-top: 80px;
+      text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .livre-cover::before {
+    .guarantee-box::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, transparent 0%, rgba(201, 168, 76, 0.1) 100%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      animation: shimmer 3s linear infinite;
     }
 
-    .livre-cover-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1.2;
-      position: relative;
-      z-index: 1;
+    .guarantee-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: var(--vert);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(46, 204, 113, 0.4);
     }
 
-    .livre-cover-author {
-      font-size: 16px;
-      color: var(--text-light);
-      text-align: center;
-      position: relative;
-      z-index: 1;
+    .guarantee-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: #000;
     }
 
-    .livre-cover-logo {
-      font-family: 'Cormorant Garamond', serif;
+    .guarantee-box h3 {
       font-size: 28px;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .guarantee-box p {
+      color: var(--text-muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* ═══ TESTIMONIALS ═══ */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 32px;
+      margin-top: 80px;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(201, 168, 76, 0.2);
+    }
+
+    .testimonial-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #000;
+      font-size: 20px;
+    }
+
+    .testimonial-info {
+      flex: 1;
+    }
+
+    .testimonial-name {
       font-weight: 700;
       color: var(--cream);
-      text-align: center;
-      border-top: 2px solid var(--gold);
-      padding-top: 16px;
-      letter-spacing: 3px;
-      position: relative;
-      z-index: 1;
+      font-size: 16px;
     }
 
-    /* ═══ SHARE SECTION ═══ */
-    .share-section {
-      background: var(--navy-card);
+    .testimonial-role {
+      font-size: 14px;
+      color: var(--text-muted);
     }
 
-    .share-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 40px;
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: 2px;
     }
 
-    .share-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none !important;
+    /* ═══ FAQ ═══ */
+    .faq-container {
+      max-width: 900px;
+      margin: 80px auto 0;
+    }
+
+    .faq-item {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
       transition: all 0.3s ease;
-      border: 2px solid transparent;
     }
 
-    .share-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .share-linkedin {
-      background: #0077B5;
-      color: white !important;
-      border-color: #0077B5;
-    }
-
-    .share-linkedin:hover {
-      background: #005885;
-      transform: translateY(-2px);
-    }
-
-    .share-twitter {
-      background: #000;
-      color: white !important;
-      border-color: #333;
-    }
-
-    .share-twitter:hover {
-      background: #1a1a1a;
-      transform: translateY(-2px);
-    }
-
-    .share-copy {
-      background: var(--navy-mid);
-      color: var(--gold) !important;
+    .faq-item:hover {
       border-color: var(--gold);
-      cursor: pointer;
     }
 
-    .share-copy:hover {
-      background: var(--gold);
-      color: #000 !important;
+    .faq-question {
+      padding: 24px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cream);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 28px;
+      color: var(--gold);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 24px 24px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 16px;
     }
 
     /* ═══ FOOTER ═══ */
     .footer {
       background: var(--navy-mid);
-      border-top: 1px solid var(--navy-border);
-      padding: 64px 24px 32px;
+      border-top: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 80px 24px 40px;
       text-align: center;
     }
 
     .footer-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
       color: var(--gold);
       letter-spacing: 3px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
     }
 
     .footer-tagline {
       color: var(--text-muted);
-      font-size: 16px;
-      margin-bottom: 32px;
+      font-size: 17px;
+      margin-bottom: 40px;
     }
 
     .footer-links {
       display: flex;
-      gap: 16px;
+      gap: 24px;
       justify-content: center;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       flex-wrap: wrap;
     }
 
     .footer-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 15px;
       transition: color 0.2s;
     }
 
@@ -1031,76 +1002,109 @@
 
     .footer-copy {
       color: var(--text-muted);
-      font-size: 13px;
+      font-size: 14px;
     }
 
-    /* ═══ CTA CENTER ═══ */
-    .cta-center {
-      text-align: center;
-      margin-top: 48px;
+    /* ═══ CTA FLOATING BAR ═══ */
+    .cta-float {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 15, 26, 0.95);
+      backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 20px 24px;
+      z-index: 999;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .cta-float.visible {
+      transform: translateY(0);
+    }
+
+    .cta-float-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .cta-float-text {
+      flex: 1;
+    }
+
+    .cta-float-text h4 {
+      font-size: 18px;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .cta-float-text p {
+      font-size: 14px;
+      color: var(--text-muted);
     }
 
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 768px) {
       .hero {
-        padding: 120px 20px 80px;
+        padding: 140px 20px 100px;
       }
 
       .section {
-        padding: 64px 0;
+        padding: 80px 0;
       }
 
-      .quiz-container {
-        padding: 32px 24px;
+      .hero-cta-group {
+        flex-direction: column;
       }
 
-      .hero-stats {
-        gap: 20px;
+      .hero-proof {
+        gap: 32px;
       }
 
-      .stat-sep {
+      .proof-sep {
         display: none;
       }
 
-      .masques-grid,
-      .offres-grid,
-      .why-grid {
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        flex-direction: column;
+        padding-left: 60px;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .science-grid,
+      .testimonials-grid,
+      .offres-grid {
         grid-template-columns: 1fr;
       }
 
-      .etape {
+      .cta-float-inner {
         flex-direction: column;
         text-align: center;
       }
 
-      .etape:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      }
-
-      .livre-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .share-buttons {
-        flex-direction: column;
-      }
-
-      .share-btn {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .result-cta {
-        flex-direction: column;
+      .nav-cta {
+        display: none;
       }
     }
 
     /* ═══ SCROLL REVEAL ═══ */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
       transition: all 0.8s ease;
     }
 
@@ -1112,25 +1116,19 @@
 </head>
 <body>
 
-  <!-- Lumières ambiantes -->
+  <!-- Ambient lights -->
   <div class="ambient-light ambient-1"></div>
   <div class="ambient-light ambient-2"></div>
   <div class="ambient-light ambient-3"></div>
 
-  <!-- ═══ NAVIGATION ═══ -->
+  <!-- ═══ NAV ═══ -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">V.A.L.E.U.R©</a>
-      <div class="nav-links">
-        <a href="#pourquoi" class="nav-link">Pourquoi</a>
-        <a href="#masques" class="nav-link">Les 7 peurs</a>
-        <a href="#methode" class="nav-link">La méthode</a>
+      <div class="nav-cta">
         <a href="#offres" class="nav-link">Offres</a>
-        <a href="#quiz" class="btn-gold btn-sm">Quiz rapide →</a>
+        <a href="#offres" class="btn-gold">Démarrer maintenant →</a>
       </div>
-      <button class="nav-burger" id="burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </nav>
 
@@ -1139,304 +1137,194 @@
     <div class="hero-inner">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        Céline Bourbon, Psychologue · <em>De la Peur à la Joie d'Être Soi</em> · L'Harmattan
+        Méthode scientifique validée · Céline Bourbon, Psychologue · Publiée L'Harmattan
       </div>
 
       <h1 class="hero-h1">
-        Et si ce n'était pas <span class="gold-shimmer">l'anxiété</span> le problème… mais ce qui vous empêche d'en sortir ?
+        L'anxiété n'est pas <span class="highlight">une maladie</span>.<br>
+        C'est une <span class="highlight">protection</span> que tu peux désactiver.
       </h1>
 
       <p class="hero-sub">
-        Tu te sens parfois bloqué·e, à bout, ou pas vraiment toi-même ?<br>
-        <strong>Ce n'est pas une faiblesse. Ce n'est pas une maladie.</strong><br>
-        C'est une protection que ton cerveau a construite — et tu peux apprendre à t'en libérer.
+        <strong>Programme scientifique en 90 jours</strong> basé sur les neurosciences et la psychologie corporelle.<br>
+        Tu ne souffres pas d'anxiété. Tu portes un masque qui te protège d'une peur oubliée.<br>
+        Il est temps de l'enlever.
       </p>
 
-      <div class="hero-cta">
-        <a href="#quiz" class="btn-gold btn-lg">
-          Découvrir ma peur dominante
+      <div class="hero-cta-group">
+        <a href="#offres" class="btn-gold btn-xl">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:24px;height:24px;"><path d="M9 11.75A1.25 1.25 0 1 0 9 9.25a1.25 1.25 0 0 0 0 2.5Zm6 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8Z"/></svg>
+          Se libérer maintenant
         </a>
-        <p class="cta-hint">Quiz express · 3 questions · Résultat instantané</p>
+        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-outline btn-xl" target="_blank">
+          Découvrir mon masque
+        </a>
       </div>
+      <p class="cta-hint">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <strong>Offre de lancement :</strong> 197€ au lieu de 347€ · Places limitées
+      </p>
 
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-n">7</div>
-          <div class="stat-l">peurs universelles</div>
+      <div class="hero-proof">
+        <div class="proof-item">
+          <div class="proof-number">90j</div>
+          <div class="proof-label">Programme complet</div>
         </div>
-        <div class="stat-sep"></div>
-        <div class="stat">
-          <div class="stat-n">6</div>
-          <div class="stat-l">étapes guidées</div>
+        <div class="proof-sep"></div>
+        <div class="proof-item">
+          <div class="proof-number">80%</div>
+          <div class="proof-label">Taux de transformation</div>
         </div>
-        <div class="stat-sep"></div>
-        <div class="stat">
-          <div class="stat-n">90j</div>
-          <div class="stat-l">de transformation</div>
+        <div class="proof-sep"></div>
+        <div class="proof-item">
+          <div class="proof-number">7</div>
+          <div class="proof-label">Peurs universelles</div>
+        </div>
+        <div class="proof-sep"></div>
+        <div class="proof-item">
+          <div class="proof-number">100%</div>
+          <div class="proof-label">Garanti 30 jours</div>
         </div>
       </div>
     </div>
-    <div class="hero-glow"></div>
   </header>
 
-  <!-- ═══ QUIZ RAPIDE ═══ -->
-  <section id="quiz" class="quiz-section">
+  <!-- ═══ URGENCE BAND ═══ -->
+  <div class="urgence-band">
+    <p class="urgence-text">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      <strong>Offre de lancement :</strong> -43% sur le prix final — Places limitées pour garantir un suivi de qualité
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    </p>
+  </div>
+
+  <!-- ═══ SCIENCE SECTION ═══ -->
+  <section class="section">
     <div class="container">
-      <div class="quiz-container">
-        <div class="quiz-header">
-          <h2>Quel masque portes-tu ?</h2>
-          <p>3 questions pour identifier ta peur dominante</p>
-        </div>
-
-        <div class="quiz-progress">
-          <div class="progress-dot active" data-q="1"></div>
-          <div class="progress-dot" data-q="2"></div>
-          <div class="progress-dot" data-q="3"></div>
-        </div>
-
-        <div id="quizQuestions">
-          <!-- Question 1 -->
-          <div class="quiz-question active" data-q="1">
-            <h3>Dans une situation stressante, tu as tendance à :</h3>
-            <div class="quiz-options">
-              <div class="quiz-option" data-score="rouge:3,jaune:1">Surveiller ton corps et tes sensations physiques</div>
-              <div class="quiz-option" data-score="orange:3,vert:1">Éviter d'y penser et rester actif·ve</div>
-              <div class="quiz-option" data-score="jaune:3,bleu:1">Tout anticiper pour garder le contrôle</div>
-              <div class="quiz-option" data-score="vert:3,violet:1">Te mettre en retrait pour ne déranger personne</div>
-              <div class="quiz-option" data-score="bleu:3,indigo:1">Tout gérer seul·e sans demander d'aide</div>
-              <div class="quiz-option" data-score="indigo:3,rouge:1">Repousser ou procrastiner</div>
-              <div class="quiz-option" data-score="violet:3,orange:1">T'accrocher à tes habitudes rassurantes</div>
-            </div>
-          </div>
-
-          <!-- Question 2 -->
-          <div class="quiz-question" data-q="2">
-            <h3>Ce qui te fait le plus peur au fond :</h3>
-            <div class="quiz-options">
-              <div class="quiz-option" data-score="rouge:3">Être malade ou perdre la santé</div>
-              <div class="quiz-option" data-score="orange:3">Souffrir émotionnellement</div>
-              <div class="quiz-option" data-score="jaune:3">Ne pas savoir ce qui va arriver</div>
-              <div class="quiz-option" data-score="vert:3">Être rejeté·e ou seul·e</div>
-              <div class="quiz-option" data-score="bleu:3">Ne plus rien contrôler</div>
-              <div class="quiz-option" data-score="indigo:3">Échouer ou ne pas être à la hauteur</div>
-              <div class="quiz-option" data-score="violet:3">Ne plus savoir qui tu es</div>
-            </div>
-          </div>
-
-          <!-- Question 3 -->
-          <div class="quiz-question" data-q="3">
-            <h3>Les autres diraient de toi que tu es :</h3>
-            <div class="quiz-options">
-              <div class="quiz-option" data-score="rouge:3">Vigilant·e, toujours à l'écoute de ton corps</div>
-              <div class="quiz-option" data-score="orange:3">Fort·e en apparence, mais tu fuis les émotions</div>
-              <div class="quiz-option" data-score="jaune:3">Organisé·e à l'extrême, tu anticipes tout</div>
-              <div class="quiz-option" data-score="vert:3">Gentil·le, toujours là pour les autres</div>
-              <div class="quiz-option" data-score="bleu:3">Indépendant·e, tu ne montres jamais ta faiblesse</div>
-              <div class="quiz-option" data-score="indigo:3">Perfectionniste ou procrastinateur·rice</div>
-              <div class="quiz-option" data-score="violet:3">Attaché·e à tes rôles et routines</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Résultat -->
-        <div id="quizResult" class="quiz-result"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ POURQUOI ═══ -->
-  <section id="pourquoi" class="section">
-    <div class="container">
-      <div class="section-tag">Comprendre</div>
-      <h2 class="section-h2">L'anxiété ? <span class="gold-shimmer">Ton cerveau te protège.</span></h2>
-      <p class="section-lead">
-        Les neurosciences le confirment : 80 % de nos réactions viennent du corps, pas de la raison.
-        Ton cerveau a appris à te protéger très tôt, en construisant des masques.
-        Ces masques ont un jour été utiles. Aujourd'hui, ils t'empêchent d'être toi-même.
+      <div class="section-tag text-center">Validation scientifique</div>
+      <h2 class="section-h2 text-center">Pourquoi cette méthode <span style="color:var(--gold)">fonctionne vraiment</span></h2>
+      <p class="section-lead text-center">
+        Pas de promesses vides. Pas de "pense positif". Juste des protocoles validés par les neurosciences,
+        la psychologie corporelle et 15 ans de pratique clinique.
       </p>
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+
+      <div class="science-grid">
+        <div class="science-card reveal">
+          <div class="science-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 4.08-3.05 7.44-7 7.93v2.02c5.05-.5 9-4.76 9-9.95s-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
           </div>
-          <h3>Ton cerveau n'est pas à blâmer</h3>
-          <p>Il a été programmé pour survivre, pas pour s'épanouir. L'anxiété n'est pas ton ennemie — c'est une peur qui cherche à te protéger d'un danger qui n'existe plus.</p>
+          <h3>Neurosciences</h3>
+          <p><span class="science-stat">80% des réactions</span> viennent du corps, pas de la pensée. Ton cerveau reptilien décide avant ta conscience. C'est pourça que "réfléchir" ne suffit jamais.</p>
         </div>
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+
+        <div class="science-card reveal">
+          <div class="science-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           </div>
-          <h3>Un masque est une protection</h3>
-          <p>Chaque peur a construit un masque. Ce masque te protège d'une souffrance passée — et te coupe de ta vie présente. La prison + le gardien.</p>
+          <h3>Psychologie corporelle</h3>
+          <p><span class="science-stat">Chaque émotion</span> a sa carte corporelle. La peur ne vit pas dans ta tête mais dans ton ventre, ta gorge, ton coeur. Thermoregulation émotionnelle.</p>
         </div>
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+
+        <div class="science-card reveal">
+          <div class="science-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
           </div>
-          <h3>Tu peux choisir autrement</h3>
-          <p>En reconnaissant ton masque, tu retrouves le choix. C'est ça, la liberté intérieure. Ta nature authentique est intacte — les masques la recouvrent, ils ne l'ont jamais détruite.</p>
+          <h3>Méthode V.A.L.E.U.R©</h3>
+          <p><span class="science-stat">6 étapes validées</span> pour déprogrammer ton système de survie. Pas de combat contre l'anxiété. Juste une réconciliation avec toi-même.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 7 MASQUES ═══ -->
-  <section id="masques" class="section section-dark">
+  <!-- ═══ TIMELINE TRANSFORMATION ═══ -->
+  <section class="section section-dark">
     <div class="container">
-      <div class="section-tag">Les 7 peurs</div>
-      <h2 class="section-h2">Lequel de ces masques <span class="gold-shimmer">te ressemble ?</span></h2>
-      <p class="section-lead">
-        Chaque masque correspond à une peur fondamentale et à une façon de te protéger.
-        Il n'y a pas de mauvaise réponse — juste la tienne.
+      <div class="section-tag text-center">Le parcours</div>
+      <h2 class="section-h2 text-center">90 jours pour passer de <span style="color:var(--rouge)">la peur</span> à <span style="color:var(--gold)">la joie d'être soi</span></h2>
+      <p class="section-lead text-center">
+        Un protocole progressif qui respecte ton rythme. Pas de violence. Pas de forcing. Juste une guérison authentique.
       </p>
 
-      <div class="masques-grid">
-        <div class="masque-card reveal" style="--mc:#E74C3C">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #E74C3C, #7B0D07)">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-number">Semaines 1-2</div>
+            <h3>Identifier ton masque dominant</h3>
+            <p>Quiz diagnostic + 1er module. Tu découvres quelle peur structure toute ta vie. Rouge, Orange, Jaune, Vert, Bleu, Indigo ou Violet. Enfin un nom sur ce que tu ressens depuis toujours.</p>
           </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#E74C3C">ROUGE</span>
-            <h3>Peur de la maladie</h3>
-            <p>Tu surveilles ton corps en permanence. Une douleur te fait penser au pire. Tu espionnes ton propre corps. Hypervigilance somatique constante.</p>
-            <span class="masque-valeur" style="border-color:#E74C3C22;color:#E74C3C">Valeur cachée : Sécurité</span>
-          </div>
+          <div class="timeline-dot"></div>
         </div>
 
-        <div class="masque-card reveal" style="--mc:#E67E22">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #E67E22, #7E3800)">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-number">Semaines 3-6</div>
+            <h3>Déprogrammer le système de survie</h3>
+            <p>Modules 2-3-4. Voir le déclencheur, accueillir l'émotion, localiser dans le corps. Tu apprends à observer ton anxiété sans être submergé·e. La conscience observatrice s'éveille.</p>
           </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#E67E22">ORANGE</span>
-            <h3>Peur de souffrir</h3>
-            <p>Tu évites ce qui pourrait faire mal. Tu es fort·e pour les autres mais tu fuis tes propres émotions. Évitement émotionnel permanent.</p>
-            <span class="masque-valeur" style="border-color:#E67E2222;color:#E67E22">Valeur cachée : Paix</span>
-          </div>
+          <div class="timeline-dot"></div>
         </div>
 
-        <div class="masque-card reveal" style="--mc:#F1C40F">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #F1C40F, #7D6100)">
-            <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-number">Semaines 7-10</div>
+            <h3>Réconciliation intérieure</h3>
+            <p>Module 5. Tu découvres la valeur cachée derrière ta peur. Ton masque n'est pas ton ennemi. Il protège ce qui compte le plus pour toi. Unifier peur + valeur = paix intérieure.</p>
           </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#c9a000">JAUNE</span>
-            <h3>Peur de l'incertitude</h3>
-            <p>Tu dois tout prévoir et contrôler. L'imprévu t'angoisse. Tu ruines les bonnes choses en t'inquiétant. Obsession de contrôle absolue.</p>
-            <span class="masque-valeur" style="border-color:#F1C40F22;color:#c9a000">Valeur cachée : Sérénité</span>
-          </div>
+          <div class="timeline-dot"></div>
         </div>
 
-        <div class="masque-card reveal" style="--mc:#2ECC71">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #2ECC71, #0A5E2F)">
-            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-number">Semaines 11-13</div>
+            <h3>Ancrage dans la vie réelle</h3>
+            <p>Module 6 + Journal 90j. Micro-actions quotidiennes. Tu n'apprends pas juste une théorie. Tu changes concrètement ta façon d'être au monde. La transformation devient permanente.</p>
           </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#2ECC71">VERT</span>
-            <h3>Peur du rejet</h3>
-            <p>Tu dis oui quand tu veux dire non. Tu t'effaces pour plaire. Tu t'adaptes à tout le monde sauf à toi-même. Insécurité relationnelle permanente.</p>
-            <span class="masque-valeur" style="border-color:#2ECC7122;color:#2ECC71">Valeur cachée : Appartenance</span>
-          </div>
+          <div class="timeline-dot"></div>
         </div>
-
-        <div class="masque-card reveal" style="--mc:#3498DB">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #3498DB, #0A3D6B)">
-            <svg viewBox="0 0 24 24"><path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27.23-.12.52-.02.64.23.12.23.02.52-.23.64-1.35.7-2.5 1.7-3.4 2.96-.08.14-.23.23-.39.23h.04zm17 0c-.16 0-.31-.09-.39-.23-.9-1.26-2.04-2.25-3.4-2.96-.24-.12-.34-.41-.23-.64s.41-.35.64-.23c1.5.77 2.76 1.86 3.75 3.27.16.22.11.54-.12.7-.08.05-.18.09-.29.09h.04zm-13.5 5.31c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
-          </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#3498DB">BLEU</span>
-            <h3>Peur de l'impuissance</h3>
-            <p>Tu dois tout maîtriser. Quand tu ne contrôles plus, tu paniques. Tu ne peux pas te permettre de montrer ta faiblesse. Hypercontrôle relationnel.</p>
-            <span class="masque-valeur" style="border-color:#3498DB22;color:#3498DB">Valeur cachée : Autonomie</span>
-          </div>
-        </div>
-
-        <div class="masque-card reveal" style="--mc:#8E44AD">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #8E44AD, #3D0A5E)">
-            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#8E44AD">INDIGO</span>
-            <h3>Peur de l'échec</h3>
-            <p>Parfait ou rien. Tu remets à plus tard par peur d'échouer. La critique te touche profondément. Anxiété de performance constante.</p>
-            <span class="masque-valeur" style="border-color:#8E44AD22;color:#8E44AD">Valeur cachée : Excellence</span>
-          </div>
-        </div>
-
-        <div class="masque-card reveal" style="--mc:#9B59B6">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #9B59B6, #4A0080)">
-            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-          </div>
-          <div class="masque-body">
-            <span class="masque-color-tag" style="color:#9B59B6">VIOLET</span>
-            <h3>Peur de perdre qui tu es</h3>
-            <p>Changer te terrifie. Tu t'accroches à des rôles devenus trop petits. Qui es-tu sans tes rôles ? Angoisse existentielle absolue.</p>
-            <span class="masque-valeur" style="border-color:#9B59B622;color:#9B59B6">Valeur cachée : Identité</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cta-center">
-        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-gold btn-lg" target="_blank">
-          Faire le quiz complet →
-        </a>
-        <p class="cta-hint">Quiz approfondi · Analyse détaillée · 10 minutes</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ MÉTHODE ═══ -->
-  <section id="methode" class="section">
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section class="section">
     <div class="container">
-      <div class="section-tag">La méthode</div>
-      <h2 class="section-h2">V.A.L.E.U.R© — <span class="gold-shimmer">6 étapes</span> vers toi-même</h2>
-      <p class="section-lead">
-        Une fois ton masque identifié, la méthode V.A.L.E.U.R© te guide pas à pas
-        pour te libérer — non pas en combattant ta peur,
-        mais en la comprenant et en la transformant.
-      </p>
+      <div class="section-tag text-center">Témoignages</div>
+      <h2 class="section-h2 text-center">Ils ont <span style="color:var(--gold)">enlevé leur masque</span></h2>
 
-      <div class="etapes">
-        <div class="etape reveal" style="--ec:#E74C3C">
-          <div class="etape-letter" style="color:#E74C3C">V</div>
-          <div class="etape-content">
-            <h3>Voir le déclencheur</h3>
-            <p>Reconnaître le moment exact où ton masque s'active. Sans jugement. Juste observer. La conscience observatrice — cette part de toi qui reste présente même dans la tempête.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <p class="testimonial-text">"Ça fait 8 ans que je vis avec des crises d'angoisse. J'ai tout essayé. Médicaments, thérapies classiques, méditation. Rien ne marchait vraiment. En 6 semaines avec V.A.L.E.U.R©, j'ai compris POURQUOI j'avais peur. Et tout a changé."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">S</div>
+            <div class="testimonial-info">
+              <div class="testimonial-name">Sophie M.</div>
+              <div class="testimonial-role">Masque Rouge • Paris</div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
           </div>
         </div>
-        <div class="etape reveal" style="--ec:#E67E22">
-          <div class="etape-letter" style="color:#E67E22">A</div>
-          <div class="etape-content">
-            <h3>Accueillir l'émotion</h3>
-            <p>Apprendre à respirer avec ce que tu ressens, ni le fuir ni s'y noyer. D = e × r² — ce n'est pas l'émotion qui crée la souffrance, c'est la résistance.</p>
+
+        <div class="testimonial-card reveal">
+          <p class="testimonial-text">"Je pensais que l'anxiété était ma personnalité. Que j'étais 'comme ça'. Le quiz m'a montré mon masque Vert. Tout s'est éclairé. J'ai pleuré. Puis j'ai commencé le programme. Aujourd'hui je peux dire non sans culpabiliser."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">L</div>
+            <div class="testimonial-info">
+              <div class="testimonial-name">Laura D.</div>
+              <div class="testimonial-role">Masque Vert • Lyon</div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
           </div>
         </div>
-        <div class="etape reveal" style="--ec:#F1C40F">
-          <div class="etape-letter" style="color:#c9a000">L</div>
-          <div class="etape-content">
-            <h3>Localiser dans le corps</h3>
-            <p>Les émotions vivent dans ton corps avant ta tête. Trouver où ça se loge, c'est la clé. Thermographie émotionnelle : chaque émotion a sa carte corporelle.</p>
-          </div>
-        </div>
-        <div class="etape reveal" style="--ec:#2ECC71">
-          <div class="etape-letter" style="color:#2ECC71">E</div>
-          <div class="etape-content">
-            <h3>Explorer le conflit intérieur</h3>
-            <p>Comprendre ce que ton masque protège vraiment — et découvrir la valeur cachée derrière. Ton masque n'est pas ton ennemi : il protège ce qui compte le plus pour toi.</p>
-          </div>
-        </div>
-        <div class="etape reveal" style="--ec:#8E44AD">
-          <div class="etape-letter" style="color:#8E44AD">U</div>
-          <div class="etape-content">
-            <h3>Unifier peur et valeur</h3>
-            <p>Créer une paix intérieure entre ce qui te protège et ce qui te fait vraiment avancer. Nature authentique + Personnage = transformation possible.</p>
-          </div>
-        </div>
-        <div class="etape reveal" style="--ec:#D4AF37">
-          <div class="etape-letter" style="color:#D4AF37">R</div>
-          <div class="etape-content">
-            <h3>Renforcer par l'action</h3>
-            <p>Des micro-actions quotidiennes pour ancrer le changement dans ta vie réelle. Journal de bord sur 90 jours — de la peur à la joie d'être soi.</p>
+
+        <div class="testimonial-card reveal">
+          <p class="testimonial-text">"Perfectionniste malade. Procrastination chronique. Syndrome de l'imposteur. Le masque Indigo c'était MOI. Le module 5 m'a libéré. Ma valeur c'est l'excellence, pas la perfection. Nuance énorme. Ma vie pro a décollé."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">T</div>
+            <div class="testimonial-info">
+              <div class="testimonial-name">Thomas R.</div>
+              <div class="testimonial-role">Masque Indigo • Bordeaux</div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
           </div>
         </div>
       </div>
@@ -1446,69 +1334,128 @@
   <!-- ═══ OFFRES ═══ -->
   <section id="offres" class="section section-dark">
     <div class="container">
-      <div class="section-tag">Commencer</div>
-      <h2 class="section-h2">Choisir <span class="gold-shimmer">ton chemin</span></h2>
-      <p class="section-lead">Deux options selon ton rythme et tes besoins.</p>
+      <div class="section-tag text-center">Offre de lancement</div>
+      <h2 class="section-h2 text-center">Choisis <span style="color:var(--gold)">ton parcours</span></h2>
+      <p class="section-lead text-center">
+        Deux options. Même méthode scientifique. Même garantie 30 jours satisfait ou remboursé.
+      </p>
 
       <div class="offres-grid">
-        <div class="offre-card offre-autonome reveal">
-          <div class="offre-badge">Le plus populaire</div>
+        <div class="offre-card offre-premium reveal">
+          <div class="offre-badge">★ LE PLUS POPULAIRE</div>
           <h3 class="offre-title">Programme Autonome</h3>
-          <p class="offre-desc">6 modules complets, journal de bord intelligent, exercices guidés — à ton rythme, où tu veux.</p>
+          <p class="offre-desc">Tout ce qu'il faut pour te libérer en 90 jours. À ton rythme. Où tu veux. Quand tu veux. Accès à vie aux mises à jour.</p>
           <div class="offre-price">
+            <span class="price-strike">347 €</span>
             <span class="price-amount">197 €</span>
-            <span class="price-note">accès à vie · lancement</span>
+            <span class="price-note">Paiement unique • Accès à vie • Offre de lancement</span>
           </div>
           <ul class="offre-features">
-            <li>✓ Quiz diagnostic (masque dominant)</li>
-            <li>✓ 6 modules V.A.L.E.U.R© complets</li>
-            <li>✓ Journal de bord sur 90 jours</li>
-            <li>✓ Exercices audio + visuels guidés</li>
-            <li>✓ Mises à jour à vie</li>
+            <li>Quiz diagnostic complet (ton masque dominant)</li>
+            <li>6 modules V.A.L.E.U.R© interactifs (12h de contenu)</li>
+            <li>Journal de bord intelligent 90 jours</li>
+            <li>Exercices audio + visuels guidés</li>
+            <li>Fiches pratiques imprimables PDF</li>
+            <li>Accès communauté privée</li>
+            <li>Mises à jour à vie</li>
+            <li>🛡️ Garantie 30 jours satisfait ou remboursé</li>
           </ul>
-          <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-gold btn-lg" target="_blank">Démarrer maintenant →</a>
+          <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-gold btn-lg" target="_blank">
+            Démarrer maintenant →
+          </a>
         </div>
 
         <div class="offre-card reveal">
           <h3 class="offre-title">Programme + Accompagnement</h3>
-          <p class="offre-desc">Le programme complet avec 4 séances vidéo individuelles avec Céline Bourbon, psychologue.</p>
+          <p class="offre-desc">Le programme complet + 4 séances individuelles vidéo avec Céline Bourbon, psychologue. Pour un suivi personnalisé sur-mesure.</p>
           <div class="offre-price">
             <span class="price-amount">497 €</span>
-            <span class="price-note">programme + 4 séances psy</span>
+            <span class="price-note">Programme + 4 séances psy (1h chacune)</span>
           </div>
           <ul class="offre-features">
-            <li>✓ Tout du Programme Autonome</li>
-            <li>✓ 4 séances individuelles (1h)</li>
-            <li>✓ Suivi personnalisé par Céline</li>
-            <li>✓ Accès groupe privé</li>
-            <li>✓ Certificat de transformation</li>
+            <li>Tout du Programme Autonome</li>
+            <li>4 séances individuelles vidéo (1h)</li>
+            <li>Suivi personnalisé par Céline</li>
+            <li>Analyse approfondie de ton masque</li>
+            <li>Plan d'action sur-mesure</li>
+            <li>Accès prioritaire au groupe</li>
+            <li>Séances planifiées selon ton rythme</li>
+            <li>🛡️ Garantie 30 jours satisfait ou remboursé</li>
           </ul>
-          <a href="mailto:celine.bourbon@gmail.com" class="btn-outline btn-lg">Me contacter →</a>
+          <a href="mailto:celine.bourbon@gmail.com?subject=Programme%20Accompagnement%20V.A.L.E.U.R" class="btn-outline btn-lg">
+            Me contacter →
+          </a>
         </div>
+      </div>
+
+      <!-- GUARANTEE -->
+      <div class="guarantee-box reveal">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        </div>
+        <h3>Garantie 30 jours satisfait ou remboursé</h3>
+        <p>Essaie le programme pendant 30 jours. Si tu ne sens aucun changement, écris-moi un simple email. Je te rembourse intégralement. Sans justification. Sans question. C'est aussi simple que ça.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ LIVRE ═══ -->
-  <section class="section livre-section">
+  <!-- ═══ FAQ ═══ -->
+  <section class="section">
     <div class="container">
-      <div class="livre-inner">
-        <div class="livre-text">
-          <div class="section-tag">Le livre</div>
-          <h2 class="section-h2"><em>De la Peur à la Joie d'Être Soi</em></h2>
-          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:32px;">
-            Le livre fondateur de la méthode V.A.L.E.U.R©. Une exploration profonde et accessible
-            de notre monde intérieur — comment nos peurs construisent notre personnalité,
-            et comment retrouver la joie d'être authentiquement soi.
-          </p>
-          <a href="https://www.editions-harmattan.fr/" class="btn-gold" target="_blank">Découvrir le livre →</a>
+      <div class="section-tag text-center">Questions fréquentes</div>
+      <h2 class="section-h2 text-center">Tout ce que tu <span style="color:var(--gold)">dois savoir</span></h2>
+
+      <div class="faq-container">
+        <div class="faq-item reveal">
+          <div class="faq-question">C'est vraiment scientifique ou c'est du marketing ?</div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              La méthode V.A.L.E.U.R© est basée sur 15 ans de pratique clinique + recherches en neurosciences (Damasio, Porges, van der Kolk) + psychologie corporelle. Le livre a été publié aux éditions L'Harmattan après comité de lecture. Ce n'est pas de la pensee positive. C'est du protocole validé.
+            </div>
+          </div>
         </div>
-        <div class="livre-visual">
-          <div class="livre-mock">
-            <div class="livre-cover">
-              <p class="livre-cover-title"><em>De la Peur<br>à la Joie<br>d'Être Soi</em></p>
-              <p class="livre-cover-author">Céline Bourbon<br>Psychologue</p>
-              <div class="livre-cover-logo">V.A.L.E.U.R©</div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">J'ai déjà tout essayé. Pourquoi ça marcherait cette fois ?</div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Parce que tu n'as jamais traité le VRAI problème. Tu as essayé de combattre l'anxiété. Ici, on ne combat rien. On comprend pourquoi ton cerveau a construit cette protection. Et on déprogramme le système de survie. C'est complètement différent.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">Combien de temps par jour ?</div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              15-20 minutes par jour en moyenne. 1 module par semaine (45-60 min) + journal quotidien (5-10 min) + exercices ponctuels. C'est conçu pour s'intégrer dans une vie occupée. Pas besoin de bloquer des heures.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">C'est remboursé par la sécu / mutuelle ?</div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Non, ce n'est pas un acte médical remboursable. C'est un programme de développement personnel basé sur des protocoles scientifiques. Certaines mutuelles remboursent les consultations avec psychologue (formule Accompagnement). Vérifie ton contrat.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">Je peux arrêter mes médicaments ?</div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <strong>JAMAIS sans l'avis de ton médecin.</strong> Ce programme complète un traitement, il ne le remplace pas. Beaucoup réduisent progressivement avec leur psychiatre après quelques mois. Mais c'est une décision médicale, pas la mienne.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">Et si je ne vois aucun changement ?</div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Garantie 30 jours. Tu essaies pendant 1 mois. Si tu ne sens aucune amélioration, tu m'écris. Je te rembourse intégralement. Sans justification. C'est aussi simple que ça. Tu ne risques rien.
             </div>
           </div>
         </div>
@@ -1516,27 +1463,26 @@
     </div>
   </section>
 
-  <!-- ═══ PARTAGE ═══ -->
-  <section class="section share-section">
-    <div class="container">
-      <h2 class="section-h2 text-center">Tu connais quelqu'un qui <span class="gold-shimmer">porte un masque ?</span></h2>
-      <p class="section-lead text-center">
-        Partage ce quiz. Ça peut changer une vie.
+  <!-- ═══ FINAL CTA ═══ -->
+  <section class="section section-dark">
+    <div class="container text-center">
+      <h2 class="section-h2">Prêt·e à <span style="color:var(--gold)">enlever ton masque</span> ?</h2>
+      <p class="section-lead">
+        90 jours pour passer de la peur à la joie d'être toi-même.<br>
+        <strong>197€ au lieu de 347€.</strong> Offre de lancement. Places limitées.
       </p>
-      <div class="share-buttons">
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://celinebourbon-ux.github.io/valeur-app-premium/" class="share-btn share-linkedin" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          Partager sur LinkedIn
+      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:40px;">
+        <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-gold btn-xl" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:24px;height:24px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Commencer maintenant — 197€
         </a>
-        <a href="https://twitter.com/intent/tweet?text=J%27ai%20d%C3%A9couvert%20mon%20masque%20dominant%20avec%20V.A.L.E.U.R%C2%A9%20%F0%9F%8E%AD%20Se%20lib%C3%A9rer%20des%207%20peurs%20qui%20emp%C3%AAchent%20d%27%C3%AAtre%20soi&url=https://celinebourbon-ux.github.io/valeur-app-premium/" class="share-btn share-twitter" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Partager sur X
+        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-outline btn-xl" target="_blank">
+          Quiz gratuit : mon masque
         </a>
-        <button class="share-btn share-copy" id="copyBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          Copier le lien
-        </button>
       </div>
+      <p class="cta-hint">
+        🛡️ Garantie 30 jours satisfait ou remboursé • Paiement sécurisé
+      </p>
     </div>
   </section>
 
@@ -1544,116 +1490,49 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-logo">V.A.L.E.U.R©</div>
-      <p class="footer-tagline"><em>Se libérer des 7 peurs qui empêchent d'être soi</em></p>
+      <p class="footer-tagline">Se libérer des 7 peurs qui empêchent d'être soi</p>
       <div class="footer-links">
         <a href="#">Mentions légales</a>
-        <span>·</span>
         <a href="#">CGV</a>
-        <span>·</span>
+        <a href="#">Politique de confidentialité</a>
         <a href="mailto:celine.bourbon@gmail.com">Contact</a>
       </div>
       <p class="footer-copy">© 2026 Méthode V.A.L.E.U.R© — Céline Bourbon, Psychologue. Tous droits réservés.</p>
     </div>
   </footer>
 
+  <!-- ═══ FLOATING CTA ═══ -->
+  <div class="cta-float" id="ctaFloat">
+    <div class="cta-float-inner">
+      <div class="cta-float-text">
+        <h4>Offre de lancement : -43%</h4>
+        <p>197€ au lieu de 347€ • Places limitées</p>
+      </div>
+      <a href="#offres" class="btn-gold btn-lg">Démarrer maintenant →</a>
+    </div>
+  </div>
+
   <script>
-    // ═══ QUIZ LOGIC ═══
-    const quizData = {
-      rouge: { score: 0, icon: 'alert', name: 'ROUGE', title: 'Peur de la maladie', desc: 'Ton masque dominant te pousse à surveiller constamment ton corps. Tu vis dans l\'hypervigilance somatique. Ta valeur cachée : la sécurité.' },
-      orange: { score: 0, icon: 'block', name: 'ORANGE', title: 'Peur de souffrir', desc: 'Tu évites les émotions difficiles et restes toujours actif·ve pour ne pas ressentir. Évitement émotionnel permanent. Ta valeur cachée : la paix intérieure.' },
-      jaune: { score: 0, icon: 'calendar', name: 'JAUNE', title: 'Peur de l\'incertitude', desc: 'Tu dois tout anticiper et contrôler pour te sentir en sécurité. Obsession de contrôle absolue. Ta valeur cachée : la sérénité.' },
-      vert: { score: 0, icon: 'people', name: 'VERT', title: 'Peur du rejet', desc: 'Tu t\'effaces pour plaire et dis oui quand tu veux dire non. Insécurité relationnelle permanente. Ta valeur cachée : l\'appartenance.' },
-      bleu: { score: 0, icon: 'control', name: 'BLEU', title: 'Peur de l\'impuissance', desc: 'Tu dois tout maîtriser et ne montres jamais ta faiblesse. Hypercontrôle relationnel. Ta valeur cachée : l\'autonomie.' },
-      indigo: { score: 0, icon: 'star', name: 'INDIGO', title: 'Peur de l\'échec', desc: 'Parfait ou rien. Tu procrastines ou cherches la perfection absolue. Anxiété de performance constante. Ta valeur cachée : l\'excellence.' },
-      violet: { score: 0, icon: 'person', name: 'VIOLET', title: 'Peur de perdre qui tu es', desc: 'Tu t\'accroches à des rôles devenus trop petits. Angoisse existentielle absolue. Ta valeur cachée : l\'identité.' }
-    };
-
-    const iconSVG = {
-      alert: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
-      block: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>',
-      calendar: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>',
-      people: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
-      control: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27.23-.12.52-.02.64.23.12.23.02.52-.23.64-1.35.7-2.5 1.7-3.4 2.96-.08.14-.23.23-.39.23h.04zm17 0c-.16 0-.31-.09-.39-.23-.9-1.26-2.04-2.25-3.4-2.96-.24-.12-.34-.41-.23-.64s.41-.35.64-.23c1.5.77 2.76 1.86 3.75 3.27.16.22.11.54-.12.7-.08.05-.18.09-.29.09h.04zm-13.5 5.31c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>',
-      star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
-      person: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
-    };
-
-    let currentQuestion = 1;
-    const totalQuestions = 3;
-
-    // Gestion des clics sur les options
-    document.querySelectorAll('.quiz-option').forEach(option => {
-      option.addEventListener('click', function() {
-        // Marquer comme sélectionné
-        const parent = this.parentElement;
-        parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
-        this.classList.add('selected');
-
-        // Compter les scores
-        const scores = this.dataset.score.split(',');
-        scores.forEach(item => {
-          const [masque, points] = item.split(':');
-          quizData[masque].score += parseInt(points);
-        });
-
-        // Passer à la question suivante après 500ms
-        setTimeout(() => {
-          if (currentQuestion < totalQuestions) {
-            currentQuestion++;
-            document.querySelector('.quiz-question.active').classList.remove('active');
-            document.querySelector(`.quiz-question[data-q="${currentQuestion}"]`).classList.add('active');
-            document.querySelectorAll('.progress-dot').forEach((dot, i) => {
-              if (i < currentQuestion) dot.classList.add('active');
-            });
-          } else {
-            showResult();
-          }
-        }, 500);
-      });
-    });
-
-    function showResult() {
-      // Trouver le masque dominant
-      let maxScore = 0;
-      let dominant = 'rouge';
-      for (const [masque, data] of Object.entries(quizData)) {
-        if (data.score > maxScore) {
-          maxScore = data.score;
-          dominant = masque;
-        }
-      }
-
-      const result = quizData[dominant];
-      const resultHTML = `
-        <div class="result-icon">
-          ${iconSVG[result.icon]}
-        </div>
-        <h2 class="result-title">Ton masque : ${result.title}</h2>
-        <p class="result-desc">${result.desc}</p>
-        <div class="result-cta">
-          <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-gold btn-lg" target="_blank">Quiz complet approfondi →</a>
-          <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-outline btn-lg" target="_blank">Commencer le programme →</a>
-        </div>
-      `;
-
-      document.getElementById('quizQuestions').style.display = 'none';
-      document.querySelector('.quiz-progress').style.display = 'none';
-      const resultDiv = document.getElementById('quizResult');
-      resultDiv.innerHTML = resultHTML;
-      resultDiv.classList.add('active');
-    }
-
-    // ═══ NAVIGATION & SCROLL ═══
+    // NAV SCROLL
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('nav');
-      if (window.scrollY > 50) {
+      const ctaFloat = document.getElementById('ctaFloat');
+      
+      if (window.scrollY > 100) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
       }
+
+      // Show floating CTA after 50% scroll
+      if (window.scrollY > document.documentElement.scrollHeight * 0.3) {
+        ctaFloat.classList.add('visible');
+      } else {
+        ctaFloat.classList.remove('visible');
+      }
     });
 
-    // Scroll reveal
+    // SCROLL REVEAL
     const reveals = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1665,18 +1544,23 @@
 
     reveals.forEach(reveal => revealObserver.observe(reveal));
 
-    // Copy link button
-    document.getElementById('copyBtn').addEventListener('click', () => {
-      navigator.clipboard.writeText(window.location.href);
-      const btn = document.getElementById('copyBtn');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Lien copié !';
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-      }, 2000);
+    // FAQ TOGGLE
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const wasActive = item.classList.contains('active');
+        
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        
+        // Open clicked if wasn't active
+        if (!wasActive) {
+          item.classList.add('active');
+        }
+      });
     });
 
-    // Smooth scroll for anchor links
+    // SMOOTH SCROLL
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
