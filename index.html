@@ -219,7 +219,7 @@
       border-radius: 50px;
       font-weight: 700;
       font-size: 16px;
-      text-decoration: none;
+      text-decoration: none !important;
       transition: all 0.3s ease;
       cursor: pointer;
       border: none;
@@ -227,24 +227,28 @@
 
     .btn-gold {
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #000;
+      color: #000 !important;
       box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+      text-decoration: none !important;
     }
 
     .btn-gold:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 30px rgba(201, 168, 76, 0.5);
+      text-decoration: none !important;
     }
 
     .btn-outline {
       background: transparent;
       border: 2px solid var(--gold);
-      color: var(--gold);
+      color: var(--gold) !important;
+      text-decoration: none !important;
     }
 
     .btn-outline:hover {
       background: var(--gold);
-      color: #000;
+      color: #000 !important;
+      text-decoration: none !important;
     }
 
     .btn-lg {
@@ -489,10 +493,22 @@
       display: block;
     }
 
-    .result-emoji {
-      font-size: 80px;
-      margin-bottom: 24px;
-      display: block;
+    .result-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+    }
+
+    .result-icon svg {
+      width: 60px;
+      height: 60px;
+      fill: #000;
     }
 
     .result-title {
@@ -576,15 +592,28 @@
     }
 
     .why-icon {
-      font-size: 48px;
-      margin-bottom: 20px;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       animation: float 3s ease-in-out infinite;
+    }
+
+    .why-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #000;
     }
 
     .why-card h3 {
       font-size: 24px;
       color: var(--cream);
       margin-bottom: 12px;
+      text-align: center;
     }
 
     .why-card p {
@@ -635,9 +664,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 64px;
       animation: orb-float 4s ease-in-out infinite;
       border-bottom: 1px solid var(--navy-border);
+    }
+
+    .masque-orb svg {
+      width: 64px;
+      height: 64px;
+      fill: var(--gold);
+      filter: drop-shadow(0 4px 12px rgba(201, 168, 76, 0.4));
     }
 
     .masque-body {
@@ -907,7 +942,7 @@
       border-radius: 50px;
       font-weight: 600;
       font-size: 15px;
-      text-decoration: none;
+      text-decoration: none !important;
       transition: all 0.3s ease;
       border: 2px solid transparent;
     }
@@ -919,7 +954,7 @@
 
     .share-linkedin {
       background: #0077B5;
-      color: white;
+      color: white !important;
       border-color: #0077B5;
     }
 
@@ -930,7 +965,7 @@
 
     .share-twitter {
       background: #000;
-      color: white;
+      color: white !important;
       border-color: #333;
     }
 
@@ -941,14 +976,14 @@
 
     .share-copy {
       background: var(--navy-mid);
-      color: var(--gold);
+      color: var(--gold) !important;
       border-color: var(--gold);
       cursor: pointer;
     }
 
     .share-copy:hover {
       background: var(--gold);
-      color: #000;
+      color: #000 !important;
     }
 
     /* ═══ FOOTER ═══ */
@@ -1119,7 +1154,7 @@
 
       <div class="hero-cta">
         <a href="#quiz" class="btn-gold btn-lg">
-          <span>🎭</span> Découvrir ma peur dominante
+          Découvrir ma peur dominante
         </a>
         <p class="cta-hint">Quiz express · 3 questions · Résultat instantané</p>
       </div>
@@ -1221,17 +1256,23 @@
       </p>
       <div class="why-grid">
         <div class="why-card reveal">
-          <div class="why-icon">🧠</div>
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+          </div>
           <h3>Ton cerveau n'est pas à blâmer</h3>
           <p>Il a été programmé pour survivre, pas pour s'épanouir. L'anxiété n'est pas ton ennemie — c'est une peur qui cherche à te protéger d'un danger qui n'existe plus.</p>
         </div>
         <div class="why-card reveal">
-          <div class="why-icon">🛡️</div>
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
           <h3>Un masque est une protection</h3>
           <p>Chaque peur a construit un masque. Ce masque te protège d'une souffrance passée — et te coupe de ta vie présente. La prison + le gardien.</p>
         </div>
         <div class="why-card reveal">
-          <div class="why-icon">✨</div>
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
           <h3>Tu peux choisir autrement</h3>
           <p>En reconnaissant ton masque, tu retrouves le choix. C'est ça, la liberté intérieure. Ta nature authentique est intacte — les masques la recouvrent, ils ne l'ont jamais détruite.</p>
         </div>
@@ -1251,72 +1292,86 @@
 
       <div class="masques-grid">
         <div class="masque-card reveal" style="--mc:#E74C3C">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #E74C3C, #7B0D07)">🔴</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #E74C3C, #7B0D07)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#E74C3C">ROUGE</span>
             <h3>Peur de la maladie</h3>
             <p>Tu surveilles ton corps en permanence. Une douleur te fait penser au pire. Tu espionnes ton propre corps. Hypervigilance somatique constante.</p>
-            <span class="masque-valeur" style="border-color:#E74C3C22;color:#E74C3C">💪 Valeur cachée : Sécurité</span>
+            <span class="masque-valeur" style="border-color:#E74C3C22;color:#E74C3C">Valeur cachée : Sécurité</span>
           </div>
         </div>
 
         <div class="masque-card reveal" style="--mc:#E67E22">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #E67E22, #7E3800)">🟠</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #E67E22, #7E3800)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#E67E22">ORANGE</span>
             <h3>Peur de souffrir</h3>
             <p>Tu évites ce qui pourrait faire mal. Tu es fort·e pour les autres mais tu fuis tes propres émotions. Évitement émotionnel permanent.</p>
-            <span class="masque-valeur" style="border-color:#E67E2222;color:#E67E22">💪 Valeur cachée : Paix</span>
+            <span class="masque-valeur" style="border-color:#E67E2222;color:#E67E22">Valeur cachée : Paix</span>
           </div>
         </div>
 
         <div class="masque-card reveal" style="--mc:#F1C40F">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #F1C40F, #7D6100)">🟡</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #F1C40F, #7D6100)">
+            <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#c9a000">JAUNE</span>
             <h3>Peur de l'incertitude</h3>
             <p>Tu dois tout prévoir et contrôler. L'imprévu t'angoisse. Tu ruines les bonnes choses en t'inquiétant. Obsession de contrôle absolue.</p>
-            <span class="masque-valeur" style="border-color:#F1C40F22;color:#c9a000">💪 Valeur cachée : Sérénité</span>
+            <span class="masque-valeur" style="border-color:#F1C40F22;color:#c9a000">Valeur cachée : Sérénité</span>
           </div>
         </div>
 
         <div class="masque-card reveal" style="--mc:#2ECC71">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #2ECC71, #0A5E2F)">🟢</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #2ECC71, #0A5E2F)">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#2ECC71">VERT</span>
             <h3>Peur du rejet</h3>
             <p>Tu dis oui quand tu veux dire non. Tu t'effaces pour plaire. Tu t'adaptes à tout le monde sauf à toi-même. Insécurité relationnelle permanente.</p>
-            <span class="masque-valeur" style="border-color:#2ECC7122;color:#2ECC71">💪 Valeur cachée : Appartenance</span>
+            <span class="masque-valeur" style="border-color:#2ECC7122;color:#2ECC71">Valeur cachée : Appartenance</span>
           </div>
         </div>
 
         <div class="masque-card reveal" style="--mc:#3498DB">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #3498DB, #0A3D6B)">🔵</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #3498DB, #0A3D6B)">
+            <svg viewBox="0 0 24 24"><path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27.23-.12.52-.02.64.23.12.23.02.52-.23.64-1.35.7-2.5 1.7-3.4 2.96-.08.14-.23.23-.39.23h.04zm17 0c-.16 0-.31-.09-.39-.23-.9-1.26-2.04-2.25-3.4-2.96-.24-.12-.34-.41-.23-.64s.41-.35.64-.23c1.5.77 2.76 1.86 3.75 3.27.16.22.11.54-.12.7-.08.05-.18.09-.29.09h.04zm-13.5 5.31c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#3498DB">BLEU</span>
             <h3>Peur de l'impuissance</h3>
             <p>Tu dois tout maîtriser. Quand tu ne contrôles plus, tu paniques. Tu ne peux pas te permettre de montrer ta faiblesse. Hypercontrôle relationnel.</p>
-            <span class="masque-valeur" style="border-color:#3498DB22;color:#3498DB">💪 Valeur cachée : Autonomie</span>
+            <span class="masque-valeur" style="border-color:#3498DB22;color:#3498DB">Valeur cachée : Autonomie</span>
           </div>
         </div>
 
         <div class="masque-card reveal" style="--mc:#8E44AD">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #8E44AD, #3D0A5E)">🔷</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #8E44AD, #3D0A5E)">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#8E44AD">INDIGO</span>
             <h3>Peur de l'échec</h3>
             <p>Parfait ou rien. Tu remets à plus tard par peur d'échouer. La critique te touche profondément. Anxiété de performance constante.</p>
-            <span class="masque-valeur" style="border-color:#8E44AD22;color:#8E44AD">💪 Valeur cachée : Excellence</span>
+            <span class="masque-valeur" style="border-color:#8E44AD22;color:#8E44AD">Valeur cachée : Excellence</span>
           </div>
         </div>
 
         <div class="masque-card reveal" style="--mc:#9B59B6">
-          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #9B59B6, #4A0080)">💜</div>
+          <div class="masque-orb" style="background:radial-gradient(circle at 35% 35%, #9B59B6, #4A0080)">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
           <div class="masque-body">
             <span class="masque-color-tag" style="color:#9B59B6">VIOLET</span>
             <h3>Peur de perdre qui tu es</h3>
             <p>Changer te terrifie. Tu t'accroches à des rôles devenus trop petits. Qui es-tu sans tes rôles ? Angoisse existentielle absolue.</p>
-            <span class="masque-valeur" style="border-color:#9B59B622;color:#9B59B6">💪 Valeur cachée : Identité</span>
+            <span class="masque-valeur" style="border-color:#9B59B622;color:#9B59B6">Valeur cachée : Identité</span>
           </div>
         </div>
       </div>
@@ -1504,13 +1559,23 @@
   <script>
     // ═══ QUIZ LOGIC ═══
     const quizData = {
-      rouge: { score: 0, emoji: '🔴', name: 'ROUGE', title: 'Peur de la maladie', desc: 'Ton masque dominant te pousse à surveiller constamment ton corps. Tu vis dans l\'hypervigilance somatique. Ta valeur cachée : la sécurité.' },
-      orange: { score: 0, emoji: '🟠', name: 'ORANGE', title: 'Peur de souffrir', desc: 'Tu évites les émotions difficiles et restes toujours actif·ve pour ne pas ressentir. Évitement émotionnel permanent. Ta valeur cachée : la paix intérieure.' },
-      jaune: { score: 0, emoji: '🟡', name: 'JAUNE', title: 'Peur de l\'incertitude', desc: 'Tu dois tout anticiper et contrôler pour te sentir en sécurité. Obsession de contrôle absolue. Ta valeur cachée : la sérénité.' },
-      vert: { score: 0, emoji: '🟢', name: 'VERT', title: 'Peur du rejet', desc: 'Tu t\'effaces pour plaire et dis oui quand tu veux dire non. Insécurité relationnelle permanente. Ta valeur cachée : l\'appartenance.' },
-      bleu: { score: 0, emoji: '🔵', name: 'BLEU', title: 'Peur de l\'impuissance', desc: 'Tu dois tout maîtriser et ne montres jamais ta faiblesse. Hypercontrôle relationnel. Ta valeur cachée : l\'autonomie.' },
-      indigo: { score: 0, emoji: '🔷', name: 'INDIGO', title: 'Peur de l\'échec', desc: 'Parfait ou rien. Tu procrastines ou cherches la perfection absolue. Anxiété de performance constante. Ta valeur cachée : l\'excellence.' },
-      violet: { score: 0, emoji: '💜', name: 'VIOLET', title: 'Peur de perdre qui tu es', desc: 'Tu t\'accroches à des rôles devenus trop petits. Angoisse existentielle absolue. Ta valeur cachée : l\'identité.' }
+      rouge: { score: 0, icon: 'alert', name: 'ROUGE', title: 'Peur de la maladie', desc: 'Ton masque dominant te pousse à surveiller constamment ton corps. Tu vis dans l\'hypervigilance somatique. Ta valeur cachée : la sécurité.' },
+      orange: { score: 0, icon: 'block', name: 'ORANGE', title: 'Peur de souffrir', desc: 'Tu évites les émotions difficiles et restes toujours actif·ve pour ne pas ressentir. Évitement émotionnel permanent. Ta valeur cachée : la paix intérieure.' },
+      jaune: { score: 0, icon: 'calendar', name: 'JAUNE', title: 'Peur de l\'incertitude', desc: 'Tu dois tout anticiper et contrôler pour te sentir en sécurité. Obsession de contrôle absolue. Ta valeur cachée : la sérénité.' },
+      vert: { score: 0, icon: 'people', name: 'VERT', title: 'Peur du rejet', desc: 'Tu t\'effaces pour plaire et dis oui quand tu veux dire non. Insécurité relationnelle permanente. Ta valeur cachée : l\'appartenance.' },
+      bleu: { score: 0, icon: 'control', name: 'BLEU', title: 'Peur de l\'impuissance', desc: 'Tu dois tout maîtriser et ne montres jamais ta faiblesse. Hypercontrôle relationnel. Ta valeur cachée : l\'autonomie.' },
+      indigo: { score: 0, icon: 'star', name: 'INDIGO', title: 'Peur de l\'échec', desc: 'Parfait ou rien. Tu procrastines ou cherches la perfection absolue. Anxiété de performance constante. Ta valeur cachée : l\'excellence.' },
+      violet: { score: 0, icon: 'person', name: 'VIOLET', title: 'Peur de perdre qui tu es', desc: 'Tu t\'accroches à des rôles devenus trop petits. Angoisse existentielle absolue. Ta valeur cachée : l\'identité.' }
+    };
+
+    const iconSVG = {
+      alert: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+      block: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>',
+      calendar: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>',
+      people: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+      control: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27.23-.12.52-.02.64.23.12.23.02.52-.23.64-1.35.7-2.5 1.7-3.4 2.96-.08.14-.23.23-.39.23h.04zm17 0c-.16 0-.31-.09-.39-.23-.9-1.26-2.04-2.25-3.4-2.96-.24-.12-.34-.41-.23-.64s.41-.35.64-.23c1.5.77 2.76 1.86 3.75 3.27.16.22.11.54-.12.7-.08.05-.18.09-.29.09h.04zm-13.5 5.31c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>',
+      star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+      person: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
     };
 
     let currentQuestion = 1;
@@ -1560,7 +1625,9 @@
 
       const result = quizData[dominant];
       const resultHTML = `
-        <span class="result-emoji">${result.emoji}</span>
+        <div class="result-icon">
+          ${iconSVG[result.icon]}
+        </div>
         <h2 class="result-title">Ton masque : ${result.title}</h2>
         <p class="result-desc">${result.desc}</p>
         <div class="result-cta">
