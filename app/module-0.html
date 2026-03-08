@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 0 : Comprendre — V.A.L.E.U.R©</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    :root {
+      --navy: #0a0f1a;
+      --navy-mid: #111827;
+      --navy-card: #1a2235;
+      --navy-border: #2a3650;
+      --gold: #c9a84c;
+      --gold-dark: #a07830;
+      --gold-light: #e8d08c;
+      --cream: #f7f3ee;
+      --text-light: #e2e8f0;
+      --text-muted: #94a3b8;
+      --rouge: #E74C3C;
+      --orange: #E67E22;
+      --jaune: #F1C40F;
+      --vert: #2ECC71;
+      --bleu: #3498DB;
+      --indigo: #8E44AD;
+      --violet: #9B59B6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--navy);
+      color: var(--text-light);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--cream);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HEADER */
+    .module-header {
+      background: rgba(10, 15, 26, 0.95);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    .module-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* PROGRESS */
+    .progress-container {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 12px 24px;
+    }
+
+    .progress-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      max-width: 900px;
+      margin: 0 auto;
+      height: 6px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+    }
+
+    /* CONTENT */
+    .module-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 64px;
+      animation: slideUp 0.6s ease;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 6vw, 56px);
+      margin-bottom: 20px;
+      color: var(--cream);
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .content-section {
+      margin-bottom: 48px;
+      animation: slideUp 0.6s ease;
+    }
+
+    .section-title {
+      font-size: 32px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 32px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      border-radius: 2px;
+    }
+
+    .text-block {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    .text-block strong {
+      color: var(--cream);
+      font-weight: 600;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), var(--navy-card));
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 32px 0;
+      font-style: italic;
+    }
+
+    .highlight-box p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    .quote {
+      text-align: center;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--gold-light);
+      margin: 48px 0;
+      line-height: 1.6;
+    }
+
+    .list-item {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+
+    .list-item:hover {
+      border-color: var(--gold);
+      transform: translateX(8px);
+    }
+
+    .list-item h4 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+
+    .list-item p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* FOOTER NAV */
+    .footer-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 15, 26, 0.95);
+      backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 20px 24px;
+      z-index: 100;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-nav {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201, 168, 76, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .module-content {
+        padding: 40px 20px 100px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .btn-nav {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function Module0() {
+      const [progress, setProgress] = useState(0);
+      const [user, setUser] = useState(null);
+
+      useEffect(() => {
+        // Charger user
+        const email = localStorage.getItem('valeur_current_user');
+        if (!email) {
+          window.location.href = 'login.html';
+          return;
+        }
+        setUser({ email });
+
+        // Simuler progression au scroll
+        const handleScroll = () => {
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrolled = window.scrollY;
+          const percent = Math.min((scrolled / docHeight) * 100, 100);
+          setProgress(percent);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const handleComplete = () => {
+        if (!user) return;
+
+        // Sauvegarder progression
+        const savedProgress = JSON.parse(localStorage.getItem(`valeur_${user.email}_progress`) || '{}');
+        const completed = savedProgress.completed || [];
+        
+        if (!completed.includes(0)) {
+          completed.push(0);
+          const newProgress = {
+            ...savedProgress,
+            completed,
+            current: Math.max(savedProgress.current || 0, 1),
+            lastActivity: new Date().toISOString()
+          };
+          localStorage.setItem(`valeur_${user.email}_progress`, JSON.stringify(newProgress));
+        }
+
+        // Redirection dashboard
+        window.location.href = 'index.html';
+      };
+
+      return (
+        <>
+          {/* HEADER */}
+          <header className="module-header">
+            <div className="header-inner">
+              <a href="index.html" className="back-btn">
+                ← Dashboard
+              </a>
+              <div className="module-number">MODULE 0</div>
+            </div>
+          </header>
+
+          {/* PROGRESS */}
+          <div className="progress-container">
+            <div className="progress-inner">
+              <span>Progression du module</span>
+              <span style={{ color: 'var(--gold)', fontWeight: 700 }}>{Math.round(progress)}%</span>
+            </div>
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+            </div>
+          </div>
+
+          {/* CONTENT */}
+          <main className="module-content">
+            <div className="hero-section">
+              <div className="hero-badge">Module 0 : Introduction</div>
+              <h1 className="hero-title">Comprendre</h1>
+              <p className="hero-subtitle">
+                Bienvenue dans la méthode V.A.L.E.U.R©. Tu es sur le point de découvrir pourquoi tu as développé l'anxiété, et comment t'en libérer définitivement.
+              </p>
+            </div>
+
+            <div className="content-section">
+              <h2 className="section-title">L'anxiété n'est pas une maladie</h2>
+              <p className="text-block">
+                <strong>Répète-toi cela :</strong> L'anxiété n'est pas une maladie. Ce n'est pas un dysfonctionnement de ton cerveau. Ce n'est pas "qui tu es". C'est une <strong>protection que ton cerveau a mise en place</strong> pour te protéger d'une peur profonde.
+              </p>
+              <p className="text-block">
+                Cette peur, tu l'as vécue très tôt. Peut-être dans l'enfance. Peut-être même avant. Et ton cerveau, pour que tu ne souffres pas, a construit un <strong>masque protecteur</strong>. Un système de défense sophistiqué.
+              </p>
+            </div>
+
+            <div className="highlight-box">
+              <p>
+                💡 <strong>Clé n°1 :</strong> L'anxiété est la conséquence d'un masque que tu portes pour te protéger d'une peur oubliée. En enlevant le masque, l'anxiété disparaît.
+              </p>
+            </div>
+
+            <div className="content-section">
+              <h2 className="section-title">Les 7 peurs universelles</h2>
+              <p className="text-block">
+                Après 15 ans de pratique clinique avec des centaines de patients, j'ai identifié <strong>7 peurs fondamentales</strong> qui expliquent 90% des troubles anxieux. Chaque peur correspond à un masque protecteur.
+              </p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--rouge)' }}>🔴 Masque Rouge : Peur de la mort</h4>
+              <p>Tu as peur que quelque chose d'irréversible arrive. Crises d'angoisse, hypocondrie, peur de perdre le contrôle.</p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--orange)' }}>🟠 Masque Orange : Peur du conflit</h4>
+              <p>Tu évites les confrontations. Tu te tais pour ne pas déplaire. Anxiété sociale, peur du jugement.</p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--jaune)' }}>🟡 Masque Jaune : Peur de l'abandon</h4>
+              <p>Tu as peur d'être laissé·e seul·e. Tu donnes trop, tu t'oublies. Anxiété d'attachement, dépendance affective.</p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--vert)' }}>🟢 Masque Vert : Peur de la transgression</h4>
+              <p>Tu as peur de faire quelque chose de mal. Tu te sens coupable. TOC, ruminations, perfectionnisme moral.</p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--bleu)' }}>🔵 Masque Bleu : Peur de l'impuissance</h4>
+              <p>Tu as peur de ne pas y arriver. Tu anticipes l'échec. Procrastination, découragement chronique.</p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--indigo)' }}>🟣 Masque Indigo : Peur de l'imperfection</h4>
+              <p>Tu as peur de ne jamais être assez bien. Syndrome de l'imposteur, perfectionnisme paralysant.</p>
+            </div>
+
+            <div className="list-item">
+              <h4 style={{ color: 'var(--violet)' }}>🟣 Masque Violet : Peur de l'existence</h4>
+              <p>Tu remets en question le sens de tout. Anxiété existentielle, déréalisation, questionnements métaphysiques.</p>
+            </div>
+
+            <p className="quote">
+              "Ton anxiété protège ce qui compte le plus pour toi."
+            </p>
+
+            <div className="content-section">
+              <h2 className="section-title">Le chemin vers la libération</h2>
+              <p className="text-block">
+                Dans les modules suivants, tu vas :
+              </p>
+              <p className="text-block">
+                <strong>1. Identifier ton masque dominant</strong> (Module 2-3)<br>
+                <strong>2. Comprendre ton mécanisme de protection</strong> (Module 1)<br>
+                <strong>3. Développer la conscience observatrice</strong> (Module 4)<br>
+                <strong>4. Réconcilier peur et valeur</strong> (Module 5)<br>
+                <strong>5. Ancrer la transformation</strong> (Module 6)
+              </p>
+            </div>
+
+            <div className="highlight-box">
+              <p>
+                ✨ <strong>Engage-toi maintenant :</strong> Les 90 prochains jours vont changer ta vie. Pas besoin de violence. Pas besoin de forcing. Juste une compréhension profonde et une transformation progressive.
+              </p>
+            </div>
+          </main>
+
+          {/* FOOTER NAV */}
+          <nav className="footer-nav">
+            <div className="footer-inner">
+              <button className="btn-nav btn-secondary" onClick={() => window.location.href = 'index.html'}>
+                ← Dashboard
+              </button>
+              <button className="btn-nav" onClick={handleComplete}>
+                Terminer le module ✓
+              </button>
+            </div>
+          </nav>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Module0 />);
+  </script>
+</body>
+</html>
