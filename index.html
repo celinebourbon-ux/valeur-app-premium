@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Programme unique pour se libérer de l'anxiété en 90 jours. Méthode V.A.L.E.U.R© — De la peur à la joie d'être soi">
-  <title>V.A.L.E.U.R© — Se libérer des 7 peurs qui empêchent d'être soi</title>
+  <title>Dashboard — V.A.L.E.U.R©</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --navy: #0a0f1a;
@@ -39,1540 +42,515 @@
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--navy);
       color: var(--text-light);
-      line-height: 1.6;
-      overflow-x: hidden;
+      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
     h1, h2, h3 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.2;
     }
 
-    /* ═══ ANIMATIONS ═══ */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-
-    @keyframes glow-pulse {
-      0%, 100% { box-shadow: 0 0 30px rgba(201, 168, 76, 0.4), 0 0 60px rgba(201, 168, 76, 0.2); }
-      50% { box-shadow: 0 0 50px rgba(201, 168, 76, 0.6), 0 0 100px rgba(201, 168, 76, 0.3); }
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes countUp {
-      from { opacity: 0; transform: scale(0.5); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* ═══ LAYOUT ═══ */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section {
-      padding: 120px 0;
-      position: relative;
-    }
-
-    /* ═══ BACKGROUND EFFECTS ═══ */
-    .ambient-light {
-      position: fixed;
-      width: 700px;
-      height: 700px;
-      border-radius: 50%;
-      filter: blur(140px);
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .ambient-1 {
-      background: var(--gold);
-      top: -250px;
-      right: -250px;
-      animation: float 18s ease-in-out infinite;
-    }
-
-    .ambient-2 {
-      background: var(--violet);
-      bottom: -250px;
-      left: -250px;
-      animation: float 22s ease-in-out infinite 5s;
-    }
-
-    .ambient-3 {
-      background: var(--vert);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: float 20s ease-in-out infinite 10s;
-    }
-
-    /* ═══ NAVIGATION ═══ */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(10, 15, 26, 0.9);
+    .header {
+      background: rgba(10, 15, 26, 0.95);
       backdrop-filter: blur(24px);
       border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-      z-index: 1000;
-      transition: all 0.3s ease;
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .nav.scrolled {
-      background: rgba(10, 15, 26, 0.95);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      border-bottom-color: rgba(201, 168, 76, 0.3);
-    }
-
-    .nav-inner {
+    .header-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .nav-logo {
+    .logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 28px;
       font-weight: 700;
       color: var(--gold);
-      text-decoration: none;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
     }
 
-    .nav-cta {
+    .user-menu {
       display: flex;
       align-items: center;
       gap: 16px;
     }
 
-    .nav-link {
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      transition: all 0.2s;
-      padding: 8px 16px;
-      border-radius: 8px;
-    }
-
-    .nav-link:hover {
-      color: var(--gold);
-      background: rgba(201, 168, 76, 0.1);
-    }
-
-    /* ═══ BUTTONS ═══ */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 40px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 17px;
-      text-decoration: none !important;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.6s;
-    }
-
-    .btn:hover::before {
-      transform: translateX(100%);
-    }
-
-    .btn-gold {
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #000 !important;
-      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
-      text-decoration: none !important;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 48px rgba(201, 168, 76, 0.6);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--gold);
-      color: var(--gold) !important;
-      text-decoration: none !important;
-    }
-
-    .btn-outline:hover {
-      background: var(--gold);
-      color: #000 !important;
-      transform: translateY(-2px);
-    }
-
-    .btn-lg {
-      padding: 20px 48px;
-      font-size: 19px;
-    }
-
-    .btn-xl {
-      padding: 24px 56px;
-      font-size: 21px;
-      font-weight: 900;
-    }
-
-    /* ═══ HERO ULTRA PREMIUM ═══ */
-    .hero {
-      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 160px 24px 120px;
-      position: relative;
+      font-weight: 700;
+      color: #000;
+      font-size: 16px;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-logout:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .progress-header {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 16px 24px;
+    }
+
+    .progress-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .progress-percent {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 10px;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
-      pointer-events: none;
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
     }
 
-    .hero-inner {
-      max-width: 1000px;
-      position: relative;
-      z-index: 10;
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      animation: fadeIn 0.6s ease;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
-      border: 1px solid rgba(201, 168, 76, 0.4);
-      border-radius: 50px;
-      padding: 10px 24px;
-      font-size: 14px;
-      color: var(--gold-light);
-      margin-bottom: 40px;
-      animation: fadeInUp 0.8s ease 0.2s both;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+    .welcome {
+      margin-bottom: 48px;
+      animation: slideUp 0.6s ease;
     }
 
-    .badge-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: glow-pulse 2s ease-in-out infinite;
-    }
-
-    .hero-h1 {
-      font-size: clamp(42px, 9vw, 84px);
+    .welcome h1 {
+      font-size: clamp(32px, 5vw, 48px);
       color: var(--cream);
-      margin-bottom: 32px;
-      line-height: 1.1;
-      animation: fadeInUp 0.8s ease 0.4s both;
-      font-weight: 700;
-      letter-spacing: -1px;
+      margin-bottom: 12px;
     }
 
-    .hero-h1 .highlight {
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      position: relative;
-      display: inline-block;
-    }
-
-    .hero-h1 .highlight::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      border-radius: 2px;
-    }
-
-    .hero-sub {
-      font-size: clamp(18px, 3.5vw, 24px);
+    .welcome p {
+      font-size: 18px;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 48px;
-      animation: fadeInUp 0.8s ease 0.6s both;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    .hero-sub strong {
-      color: var(--text-light);
-      font-weight: 700;
-    }
-
-    .hero-cta-group {
-      display: flex;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.8s ease 0.8s both;
-      margin-bottom: 56px;
+      margin-bottom: 48px;
+      animation: slideUp 0.6s ease 0.1s both;
     }
 
-    .cta-hint {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-top: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .cta-hint svg {
-      width: 16px;
-      height: 16px;
-      fill: var(--gold);
-    }
-
-    /* PROOF BADGES */
-    .hero-proof {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.8s ease 1s both;
-      margin-top: 64px;
-    }
-
-    .proof-item {
-      text-align: center;
-    }
-
-    .proof-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 56px;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 8px;
-      text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
-    }
-
-    .proof-label {
-      font-size: 15px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .proof-sep {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, transparent, var(--navy-border), transparent);
-    }
-
-    /* ═══ URGENCE / SCARCITY BAND ═══ */
-    .urgence-band {
-      background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(201, 168, 76, 0.15));
-      border-top: 1px solid rgba(201, 168, 76, 0.3);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-      padding: 20px 24px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .urgence-band::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-      animation: shimmer 3s linear infinite;
-    }
-
-    .urgence-text {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--gold-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .urgence-text svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--gold);
-      animation: glow-pulse 2s ease-in-out infinite;
-    }
-
-    /* ═══ SECTION PREMIUM ═══ */
-    .section-tag {
-      display: inline-block;
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
-      border: 1px solid rgba(201, 168, 76, 0.4);
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 32px;
-    }
-
-    .section-h2 {
-      font-size: clamp(36px, 7vw, 64px);
-      color: var(--cream);
-      margin-bottom: 28px;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-    }
-
-    .section-lead {
-      font-size: clamp(17px, 3vw, 22px);
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 900px;
-      margin: 0 auto 80px;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .section-dark {
-      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%);
-    }
-
-    /* ═══ SCIENCE PROOF SECTION ═══ */
-    .science-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-      margin-top: 80px;
-    }
-
-    .science-card {
-      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
-      border: 1px solid var(--gold);
-      border-radius: 24px;
-      padding: 40px;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .science-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.05) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .science-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(201, 168, 76, 0.3);
-      border-color: var(--gold-light);
-    }
-
-    .science-card:hover::before {
-      opacity: 1;
-    }
-
-    .science-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 28px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
-      animation: float 4s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-    }
-
-    .science-icon svg {
-      width: 40px;
-      height: 40px;
-      fill: #000;
-    }
-
-    .science-card h3 {
-      font-size: 26px;
-      color: var(--cream);
-      margin-bottom: 16px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .science-card p {
-      color: var(--text-muted);
-      line-height: 1.75;
-      font-size: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .science-stat {
-      display: inline-block;
-      background: rgba(201, 168, 76, 0.15);
-      color: var(--gold);
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 15px;
-      margin-top: 12px;
-    }
-
-    /* ═══ TRANSFORMATION TIMELINE ═══ */
-    .timeline {
-      max-width: 900px;
-      margin: 80px auto 0;
-      position: relative;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      transform: translateX(-50%);
-    }
-
-    .timeline-item {
-      display: flex;
-      gap: 40px;
-      margin-bottom: 80px;
-      position: relative;
-    }
-
-    .timeline-item:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-
-    .timeline-content {
-      flex: 1;
-      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      border-radius: 20px;
-      padding: 32px;
-      transition: all 0.4s ease;
-    }
-
-    .timeline-content:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold);
-      box-shadow: 0 12px 40px rgba(201, 168, 76, 0.2);
-    }
-
-    .timeline-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .timeline-content h3 {
-      font-size: 24px;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-
-    .timeline-content p {
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 20px;
-      background: var(--gold);
-      border-radius: 50%;
-      border: 4px solid var(--navy);
-      box-shadow: 0 0 20px var(--gold);
-      z-index: 10;
-    }
-
-    /* ═══ OFFRES PREMIUM ═══ */
-    .offres-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 40px;
-      max-width: 1100px;
-      margin: 80px auto 0;
-    }
-
-    .offre-card {
-      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
-      border: 2px solid var(--navy-border);
-      border-radius: 28px;
-      padding: 48px;
-      position: relative;
-      transition: all 0.4s ease;
-    }
-
-    .offre-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-    }
-
-    .offre-premium {
-      border-color: var(--gold);
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), var(--navy-card));
-      box-shadow: 0 0 60px rgba(201, 168, 76, 0.2);
-    }
-
-    .offre-badge {
-      position: absolute;
-      top: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #000;
-      padding: 8px 24px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
-    }
-
-    .offre-title {
-      font-size: 32px;
-      color: var(--cream);
-      margin-bottom: 16px;
-      margin-top: 12px;
-    }
-
-    .offre-desc {
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 28px;
-      font-size: 16px;
-    }
-
-    .offre-price {
-      margin-bottom: 32px;
-      padding: 24px;
-      background: rgba(201, 168, 76, 0.05);
-      border-radius: 16px;
-      border: 1px solid rgba(201, 168, 76, 0.2);
-    }
-
-    .price-strike {
-      font-size: 18px;
-      color: var(--text-muted);
-      text-decoration: line-through;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .price-amount {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 56px;
-      font-weight: 700;
-      color: var(--gold);
-      display: block;
-      line-height: 1;
-      text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
-    }
-
-    .price-note {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 8px;
-      display: block;
-    }
-
-    .offre-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .offre-features li {
-      color: var(--text-light);
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .offre-features li::before {
-      content: '✓';
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #000;
-      font-weight: 900;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .offre-features li:last-child {
-      border-bottom: none;
-    }
-
-    /* ═══ GUARANTEE BOX ═══ */
-    .guarantee-box {
-      background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(201, 168, 76, 0.1));
-      border: 2px solid var(--vert);
-      border-radius: 20px;
-      padding: 32px;
-      margin-top: 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .guarantee-box::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-      animation: shimmer 3s linear infinite;
-    }
-
-    .guarantee-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 20px;
-      background: var(--vert);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px rgba(46, 204, 113, 0.4);
-    }
-
-    .guarantee-icon svg {
-      width: 40px;
-      height: 40px;
-      fill: #000;
-    }
-
-    .guarantee-box h3 {
-      font-size: 28px;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-
-    .guarantee-box p {
-      color: var(--text-muted);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    /* ═══ TESTIMONIALS ═══ */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 32px;
-      margin-top: 80px;
-    }
-
-    .testimonial-card {
-      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 20px;
-      padding: 32px;
-      transition: all 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(201, 168, 76, 0.2);
-    }
-
-    .testimonial-text {
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--text-light);
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .testimonial-avatar {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #000;
-      font-size: 20px;
-    }
-
-    .testimonial-info {
-      flex: 1;
-    }
-
-    .testimonial-name {
-      font-weight: 700;
-      color: var(--cream);
-      font-size: 16px;
-    }
-
-    .testimonial-role {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .testimonial-stars {
-      color: var(--gold);
-      font-size: 18px;
-      letter-spacing: 2px;
-    }
-
-    /* ═══ FAQ ═══ */
-    .faq-container {
-      max-width: 900px;
-      margin: 80px auto 0;
-    }
-
-    .faq-item {
+    .stat-card {
       background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
       border: 1px solid var(--navy-border);
       border-radius: 16px;
-      margin-bottom: 16px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .faq-item:hover {
-      border-color: var(--gold);
-    }
-
-    .faq-question {
       padding: 24px;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--cream);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      transition: all 0.3s;
     }
 
-    .faq-question::after {
-      content: '+';
-      font-size: 28px;
-      color: var(--gold);
-      transition: transform 0.3s;
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.2);
     }
 
-    .faq-item.active .faq-question::after {
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 500px;
-    }
-
-    .faq-answer-content {
-      padding: 0 24px 24px;
+    .stat-label {
+      font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.7;
-      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
     }
 
-    /* ═══ FOOTER ═══ */
-    .footer {
-      background: var(--navy-mid);
-      border-top: 1px solid rgba(201, 168, 76, 0.2);
-      padding: 80px 24px 40px;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
+    .stat-value {
       font-size: 36px;
       font-weight: 700;
       color: var(--gold);
-      letter-spacing: 3px;
-      margin-bottom: 16px;
-      text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
+      font-family: 'Cormorant Garamond', serif;
     }
 
-    .footer-tagline {
-      color: var(--text-muted);
-      font-size: 17px;
-      margin-bottom: 40px;
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: var(--cream);
+      animation: slideUp 0.6s ease 0.2s both;
     }
 
-    .footer-links {
-      display: flex;
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
+      margin-bottom: 48px;
+      animation: slideUp 0.6s ease 0.3s both;
     }
 
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 15px;
-      transition: color 0.2s;
+    .module-card {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .footer-links a:hover {
-      color: var(--gold);
-    }
-
-    .footer-copy {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    /* ═══ CTA FLOATING BAR ═══ */
-    .cta-float {
-      position: fixed;
-      bottom: 0;
+    .module-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
       left: 0;
-      right: 0;
-      background: rgba(10, 15, 26, 0.95);
-      backdrop-filter: blur(24px);
-      border-top: 1px solid rgba(201, 168, 76, 0.3);
-      padding: 20px 24px;
-      z-index: 999;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+      width: 4px;
+      height: 100%;
+      background: var(--module-color);
     }
 
-    .cta-float.visible {
-      transform: translateY(0);
+    .module-card:not(.locked):hover {
+      transform: translateY(-4px);
+      border-color: var(--module-color);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
     }
 
-    .cta-float-inner {
-      max-width: 1200px;
-      margin: 0 auto;
+    .module-card.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .module-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .cta-float-text {
-      flex: 1;
-    }
-
-    .cta-float-text h4 {
+    .module-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--module-color);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
       font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .module-info h3 {
+      font-size: 20px;
       color: var(--cream);
       margin-bottom: 4px;
     }
 
-    .cta-float-text p {
-      font-size: 14px;
+    .module-duration {
+      font-size: 13px;
       color: var(--text-muted);
     }
 
-    /* ═══ RESPONSIVE ═══ */
+    .module-description {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .module-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .status-completed { color: var(--vert); }
+    .status-available { color: var(--gold); }
+    .status-locked { color: var(--text-muted); }
+
+    .btn-module {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-module:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(201, 168, 76, 0.4);
+    }
+
+    .btn-module:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .journal-widget {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      animation: slideUp 0.6s ease 0.4s both;
+    }
+
+    .journal-widget h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--gold);
+    }
+
+    .journal-widget p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .btn-journal {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-journal:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
     @media (max-width: 768px) {
-      .hero {
-        padding: 140px 20px 100px;
-      }
-
-      .section {
-        padding: 80px 0;
-      }
-
-      .hero-cta-group {
-        flex-direction: column;
-      }
-
-      .hero-proof {
-        gap: 32px;
-      }
-
-      .proof-sep {
-        display: none;
-      }
-
-      .timeline::before {
-        left: 20px;
-      }
-
-      .timeline-item,
-      .timeline-item:nth-child(even) {
-        flex-direction: column;
-        padding-left: 60px;
-      }
-
-      .timeline-dot {
-        left: 20px;
-      }
-
-      .science-grid,
-      .testimonials-grid,
-      .offres-grid {
+      .modules-grid {
         grid-template-columns: 1fr;
       }
 
-      .cta-float-inner {
-        flex-direction: column;
-        text-align: center;
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-
-      .nav-cta {
-        display: none;
-      }
-    }
-
-    /* ═══ SCROLL REVEAL ═══ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
     }
   </style>
 </head>
 <body>
+  <div id="root"></div>
 
-  <!-- Ambient lights -->
-  <div class="ambient-light ambient-1"></div>
-  <div class="ambient-light ambient-2"></div>
-  <div class="ambient-light ambient-3"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
 
-  <!-- ═══ NAV ═══ -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">V.A.L.E.U.R©</a>
-      <div class="nav-cta">
-        <a href="#offres" class="nav-link">Offres</a>
-        <a href="#offres" class="btn-gold">Démarrer maintenant →</a>
-      </div>
-    </div>
-  </nav>
+    const MODULES = [
+      { id: 0, title: 'Comprendre', description: 'Découvre les bases de la méthode V.A.L.E.U.R©', duration: '20 min', color: 'var(--gold)', file: 'module-0.html' },
+      { id: 1, title: 'Anxiété', description: 'Comprends les mécanismes de l’anxiété', duration: '25 min', color: 'var(--rouge)', file: 'module-1.html' },
+      { id: 2, title: 'Masques', description: 'Identifie ton masque protecteur', duration: '30 min', color: 'var(--orange)', file: 'module-2.html' },
+      { id: 3, title: 'Test', description: 'Passe le test des 7 masques', duration: '15 min', color: 'var(--jaune)', file: 'module-3.html' },
+      { id: 4, title: 'Observer', description: 'Développe la conscience observatrice', duration: '35 min', color: 'var(--vert)', file: 'module-4.html' },
+      { id: 5, title: 'Réconcilier', description: 'Harmonise peur et valeur', duration: '40 min', color: 'var(--bleu)', file: 'module-5.html' },
+      { id: 6, title: 'Ancrer', description: 'Intègre la transformation', duration: '30 min', color: 'var(--violet)', file: 'module-6.html' },
+    ];
 
-  <!-- ═══ HERO ═══ -->
-  <header class="hero">
-    <div class="hero-inner">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Parcours transformateur · Céline Bourbon, Psychologue · "De la peur à la joie d'être soi" (L'Harmattan)
-      </div>
+    function Dashboard() {
+      const [user, setUser] = useState(null);
+      const [progress, setProgress] = useState({ completed: [], current: 0 });
 
-      <h1 class="hero-h1">
-        L'anxiété n'est pas <span class="highlight">une maladie</span>.<br>
-        C'est une <span class="highlight">protection</span> que tu peux désactiver.
-      </h1>
-
-      <p class="hero-sub">
-        <strong>Programme transformateur en 90 jours.</strong><br>
-        Tu ne souffres pas d'anxiété. Tu portes un masque qui te protège d'une peur oubliée.<br>
-        Il est temps de l'enlever pour retrouver la joie et la spontanéité qui sont ta nature première.
-      </p>
-
-      <div class="hero-cta-group">
-        <a href="#offres" class="btn-gold btn-xl">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:24px;height:24px;"><path d="M9 11.75A1.25 1.25 0 1 0 9 9.25a1.25 1.25 0 0 0 0 2.5Zm6 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8Z"/></svg>
-          Se libérer maintenant
-        </a>
-        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-outline btn-xl" target="_blank">
-          Découvrir mon masque
-        </a>
-      </div>
-      <p class="cta-hint">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        <strong>Offre de lancement :</strong> 197€ au lieu de 347€ · Places limitées
-      </p>
-
-      <div class="hero-proof">
-        <div class="proof-item">
-          <div class="proof-number">90j</div>
-          <div class="proof-label">Programme complet</div>
-        </div>
-        <div class="proof-sep"></div>
-        <div class="proof-item">
-          <div class="proof-number">90%</div>
-          <div class="proof-label">Problèmes d'anxiété résolus</div>
-        </div>
-        <div class="proof-sep"></div>
-        <div class="proof-item">
-          <div class="proof-number">7</div>
-          <div class="proof-label">Peurs universelles</div>
-        </div>
-        <div class="proof-sep"></div>
-        <div class="proof-item">
-          <div class="proof-number">100%</div>
-          <div class="proof-label">Garanti 30 jours</div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ═══ URGENCE BAND ═══ -->
-  <div class="urgence-band">
-    <p class="urgence-text">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-      <strong>Offre de lancement :</strong> -43% sur le prix final — Places limitées pour garantir un suivi de qualité
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-    </p>
-  </div>
-
-  <!-- ═══ SCIENCE SECTION ═══ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-tag text-center">La Méthode V.A.L.E.U.R©</div>
-      <h2 class="section-h2 text-center">Une approche <span style="color:var(--gold)">unique et transformatrice</span></h2>
-      <p class="section-lead text-center">
-        Une cartographie complète de ton paysage intérieur. Une façon radicalement nouvelle de te voir.<br>
-        Libère-toi de l'emprise des masques et retrouve le chemin vers toi-même.
-      </p>
-
-      <div class="science-grid">
-        <div class="science-card reveal">
-          <div class="science-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <h3>7 Masques Universels</h3>
-          <p><span class="science-stat">90% des anxiétés</span> proviennent de 7 peurs fondamentales. Rouge, Orange, Jaune, Vert, Bleu, Indigo, Violet. Identifie ton masque dominant et tout devient clair.</p>
-        </div>
-
-        <div class="science-card reveal">
-          <div class="science-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
-          </div>
-          <h3>De la Peur à la VALEUR</h3>
-          <p><span class="science-stat">Chaque masque</span> cache une valeur essentielle. Ton anxiété protège ce qui compte le plus pour toi. Réconcilie-toi avec cette part de toi. C'est la clé de la transformation.</p>
-        </div>
-
-        <div class="science-card reveal">
-          <div class="science-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-          </div>
-          <h3>Retour à ta Nature</h3>
-          <p><span class="science-stat">Spontanéité + Joie</span> sont ta nature première. Pas une destination à atteindre. Un état à retrouver. La méthode V.A.L.E.U.R© t'y ramène progressivement, en douceur, en profondeur.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ TIMELINE TRANSFORMATION ═══ -->
-  <section class="section section-dark">
-    <div class="container">
-      <div class="section-tag text-center">Le parcours</div>
-      <h2 class="section-h2 text-center">90 jours pour passer de <span style="color:var(--rouge)">la peur</span> à <span style="color:var(--gold)">la joie d'être soi</span></h2>
-      <p class="section-lead text-center">
-        Un protocole progressif qui respecte ton rythme. Pas de violence. Pas de forcing. Juste une guérison authentique.
-      </p>
-
-      <div class="timeline">
-        <div class="timeline-item reveal">
-          <div class="timeline-content">
-            <div class="timeline-number">Semaines 1-2</div>
-            <h3>Identifier ton masque dominant</h3>
-            <p>Quiz diagnostic + 1er module. Tu découvres quelle peur structure toute ta vie. Rouge, Orange, Jaune, Vert, Bleu, Indigo ou Violet. Enfin un nom sur ce que tu ressens depuis toujours.</p>
-          </div>
-          <div class="timeline-dot"></div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-content">
-            <div class="timeline-number">Semaines 3-6</div>
-            <h3>Désactiver le système de protection</h3>
-            <p>Modules 2-3-4. Voir le déclencheur, accueillir l'émotion, comprendre le mécanisme. Tu apprends à observer ton anxiété sans être submergé·e. La conscience observatrice s'éveille.</p>
-          </div>
-          <div class="timeline-dot"></div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-content">
-            <div class="timeline-number">Semaines 7-10</div>
-            <h3>Réconciliation intérieure</h3>
-            <p>Module 5. Tu découvres la valeur cachée derrière ta peur. Ton masque n'est pas ton ennemi. Il protège ce qui compte le plus pour toi. Unifier peur + valeur = paix intérieure.</p>
-          </div>
-          <div class="timeline-dot"></div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-content">
-            <div class="timeline-number">Semaines 11-13</div>
-            <h3>Ancrage dans la vie réelle</h3>
-            <p>Module 6 + Journal 90j. Micro-actions quotidiennes. Tu n'apprends pas juste une théorie. Tu changes concrètement ta façon d'être au monde. La transformation devient permanente.</p>
-          </div>
-          <div class="timeline-dot"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ TESTIMONIALS ═══ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-tag text-center">Témoignages</div>
-      <h2 class="section-h2 text-center">Ils ont <span style="color:var(--gold)">enlevé leur masque</span></h2>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal">
-          <p class="testimonial-text">"Ça fait 8 ans que je vis avec des crises d'angoisse. J'ai tout essayé. Médicaments, thérapies classiques, méditation. Rien ne marchait vraiment. En 6 semaines avec V.A.L.E.U.R©, j'ai compris POURQUOI j'avais peur. Et tout a changé."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">S</div>
-            <div class="testimonial-info">
-              <div class="testimonial-name">Sophie M.</div>
-              <div class="testimonial-role">Masque Rouge • Paris</div>
-            </div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <p class="testimonial-text">"Je pensais que l'anxiété était ma personnalité. Que j'étais 'comme ça'. Le quiz m'a montré mon masque Vert. Tout s'est éclairé. J'ai pleuré. Puis j'ai commencé le programme. Aujourd'hui je peux dire non sans culpabiliser."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">L</div>
-            <div class="testimonial-info">
-              <div class="testimonial-name">Laura D.</div>
-              <div class="testimonial-role">Masque Vert • Lyon</div>
-            </div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <p class="testimonial-text">"Perfectionniste malade. Procrastination chronique. Syndrome de l'imposteur. Le masque Indigo c'était MOI. Le module 5 m'a libéré. Ma valeur c'est l'excellence, pas la perfection. Nuance énorme. Ma vie pro a décollé."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">T</div>
-            <div class="testimonial-info">
-              <div class="testimonial-name">Thomas R.</div>
-              <div class="testimonial-role">Masque Indigo • Bordeaux</div>
-            </div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ OFFRES ═══ -->
-  <section id="offres" class="section section-dark">
-    <div class="container">
-      <div class="section-tag text-center">Offre de lancement</div>
-      <h2 class="section-h2 text-center">Choisis <span style="color:var(--gold)">ton parcours</span></h2>
-      <p class="section-lead text-center">
-        Deux options. Même méthode transformatrice. Même garantie 30 jours satisfait ou remboursé.
-      </p>
-
-      <div class="offres-grid">
-        <div class="offre-card offre-premium reveal">
-          <div class="offre-badge">★ LE PLUS POPULAIRE</div>
-          <h3 class="offre-title">Programme Autonome</h3>
-          <p class="offre-desc">Tout ce qu'il faut pour te libérer en 90 jours. À ton rythme. Où tu veux. Quand tu veux. Accès à vie aux mises à jour.</p>
-          <div class="offre-price">
-            <span class="price-strike">347 €</span>
-            <span class="price-amount">197 €</span>
-            <span class="price-note">Paiement unique • Accès à vie • Offre de lancement</span>
-          </div>
-          <ul class="offre-features">
-            <li>Quiz diagnostic complet (ton masque dominant)</li>
-            <li>6 modules V.A.L.E.U.R© interactifs (12h de contenu)</li>
-            <li>Journal de bord intelligent 90 jours</li>
-            <li>Exercices audio + visuels guidés</li>
-            <li>Fiches pratiques imprimables PDF</li>
-            <li>Accès communauté privée</li>
-            <li>Mises à jour à vie</li>
-            <li>🛡️ Garantie 30 jours satisfait ou remboursé</li>
-          </ul>
-          <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-gold btn-lg" target="_blank">
-            Démarrer maintenant →
-          </a>
-        </div>
-
-        <div class="offre-card reveal">
-          <h3 class="offre-title">Programme + Accompagnement</h3>
-          <p class="offre-desc">Le programme complet + 4 séances individuelles vidéo avec Céline Bourbon, psychologue. Pour un suivi personnalisé sur-mesure.</p>
-          <div class="offre-price">
-            <span class="price-amount">497 €</span>
-            <span class="price-note">Programme + 4 séances psy (1h chacune)</span>
-          </div>
-          <ul class="offre-features">
-            <li>Tout du Programme Autonome</li>
-            <li>4 séances individuelles vidéo (1h)</li>
-            <li>Suivi personnalisé par Céline</li>
-            <li>Analyse approfondie de ton masque</li>
-            <li>Plan d'action sur-mesure</li>
-            <li>Accès prioritaire au groupe</li>
-            <li>Séances planifiées selon ton rythme</li>
-            <li>🛡️ Garantie 30 jours satisfait ou remboursé</li>
-          </ul>
-          <a href="mailto:celine.bourbon@gmail.com?subject=Programme%20Accompagnement%20V.A.L.E.U.R" class="btn-outline btn-lg">
-            Me contacter →
-          </a>
-        </div>
-      </div>
-
-      <!-- GUARANTEE -->
-      <div class="guarantee-box reveal">
-        <div class="guarantee-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-        </div>
-        <h3>Garantie 30 jours satisfait ou remboursé</h3>
-        <p>Essaie le programme pendant 30 jours. Si tu ne sens aucun changement, écris-moi un simple email. Je te rembourse intégralement. Sans justification. Sans question. C'est aussi simple que ça.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FAQ ═══ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-tag text-center">Questions fréquentes</div>
-      <h2 class="section-h2 text-center">Tout ce que tu <span style="color:var(--gold)">dois savoir</span></h2>
-
-      <div class="faq-container">
-        <div class="faq-item reveal">
-          <div class="faq-question">Comment cette méthode est-elle différente ?</div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              La méthode V.A.L.E.U.R© est unique. Elle propose une cartographie complète de ton paysage intérieur basée sur mon travail clinique sur l'anxiété et les traumatismes psychologiques. Plutôt que combattre l'anxiété, elle t'apprend à comprendre POURQUOI ton cerveau a construit cette protection. Le livre "De la peur à la joie d'être soi" a été publié aux éditions L'Harmattan. Cette méthode fait ses preuves et répond à 90% des problèmes d'anxiété.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item reveal">
-          <div class="faq-question">J'ai déjà tout essayé. Pourquoi ça marcherait cette fois ?</div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              Parce que tu n'as jamais traité le VRAI problème. Tu as essayé de combattre l'anxiété. Ici, on ne combat rien. On comprend pourquoi ton cerveau a construit cette protection. Et on désactive le système doucement, en réconciliant peur et valeur. C'est complètement différent.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item reveal">
-          <div class="faq-question">Combien de temps par jour ?</div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              15-20 minutes par jour en moyenne. 1 module par semaine (45-60 min) + journal quotidien (5-10 min) + exercices ponctuels. C'est conçu pour s'intégrer dans une vie occupée. Pas besoin de bloquer des heures.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item reveal">
-          <div class="faq-question">C'est remboursé par la sécu / mutuelle ?</div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              Non, ce n'est pas un acte médical remboursable. C'est un programme de développement personnel basé sur une approche psychologique unique. Certaines mutuelles remboursent les consultations avec psychologue (formule Accompagnement). Vérifie ton contrat.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item reveal">
-          <div class="faq-question">Je peux arrêter mes médicaments ?</div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              <strong>JAMAIS sans l'avis de ton médecin.</strong> Ce programme complète un traitement, il ne le remplace pas. Beaucoup réduisent progressivement avec leur psychiatre après quelques mois. Mais c'est une décision médicale, pas la mienne.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item reveal">
-          <div class="faq-question">Et si je ne vois aucun changement ?</div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              Garantie 30 jours. Tu essaies pendant 1 mois. Si tu ne sens aucune amélioration, tu m'écris. Je te rembourse intégralement. Sans justification. C'est aussi simple que ça. Tu ne risques rien.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FINAL CTA ═══ -->
-  <section class="section section-dark">
-    <div class="container text-center">
-      <h2 class="section-h2">Prêt·e à <span style="color:var(--gold)">enlever ton masque</span> ?</h2>
-      <p class="section-lead">
-        90 jours pour passer de la peur à la joie d'être toi-même.<br>
-        <strong>197€ au lieu de 347€.</strong> Offre de lancement. Places limitées.
-      </p>
-      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:40px;">
-        <a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-gold btn-xl" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:24px;height:24px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          Commencer maintenant — 197€
-        </a>
-        <a href="https://celinebourbon-ux.github.io/Questionnaire-Valeur-V4/" class="btn-outline btn-xl" target="_blank">
-          Quiz gratuit : mon masque
-        </a>
-      </div>
-      <p class="cta-hint">
-        🛡️ Garantie 30 jours satisfait ou remboursé • Paiement sécurisé
-      </p>
-    </div>
-  </section>
-
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-logo">V.A.L.E.U.R©</div>
-      <p class="footer-tagline">Se libérer des 7 peurs qui empêchent d'être soi</p>
-      <div class="footer-links">
-        <a href="#">Mentions légales</a>
-        <a href="#">CGV</a>
-        <a href="#">Politique de confidentialité</a>
-        <a href="mailto:celine.bourbon@gmail.com">Contact</a>
-      </div>
-      <p class="footer-copy">© 2026 Méthode V.A.L.E.U.R© — Céline Bourbon, Psychologue. Tous droits réservés.</p>
-    </div>
-  </footer>
-
-  <!-- ═══ FLOATING CTA ═══ -->
-  <div class="cta-float" id="ctaFloat">
-    <div class="cta-float-inner">
-      <div class="cta-float-text">
-        <h4>Offre de lancement : -43%</h4>
-        <p>197€ au lieu de 347€ • Places limitées</p>
-      </div>
-      <a href="#offres" class="btn-gold btn-lg">Démarrer maintenant →</a>
-    </div>
-  </div>
-
-  <script>
-    // NAV SCROLL
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('nav');
-      const ctaFloat = document.getElementById('ctaFloat');
-      
-      if (window.scrollY > 100) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-
-      // Show floating CTA after 50% scroll
-      if (window.scrollY > document.documentElement.scrollHeight * 0.3) {
-        ctaFloat.classList.add('visible');
-      } else {
-        ctaFloat.classList.remove('visible');
-      }
-    });
-
-    // SCROLL REVEAL
-    const reveals = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+      useEffect(() => {
+        const email = localStorage.getItem('valeur_current_user');
+        if (!email) {
+          window.location.href = 'login.html';
+          return;
         }
-      });
-    }, { threshold: 0.1 });
 
-    reveals.forEach(reveal => revealObserver.observe(reveal));
-
-    // FAQ TOGGLE
-    document.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const item = question.parentElement;
-        const wasActive = item.classList.contains('active');
+        const name = localStorage.getItem(`valeur_${email}_name`) || email.split('@')[0];
+        const savedProgress = JSON.parse(localStorage.getItem(`valeur_${email}_progress`) || '{}');
         
-        // Close all
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-        
-        // Open clicked if wasn't active
-        if (!wasActive) {
-          item.classList.add('active');
-        }
-      });
-    });
+        setUser({ email, name });
+        setProgress({
+          completed: savedProgress.completed || [],
+          current: savedProgress.current || 0
+        });
+      }, []);
 
-    // SMOOTH SCROLL
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+      const handleLogout = () => {
+        localStorage.removeItem('valeur_current_user');
+        window.location.href = 'login.html';
+      };
+
+      const openModule = (moduleId) => {
+        const module = MODULES.find(m => m.id === moduleId);
+        if (module) {
+          window.location.href = module.file;
         }
-      });
-    });
+      };
+
+      if (!user) return null;
+
+      const completedCount = progress.completed.length;
+      const progressPercent = Math.round((completedCount / MODULES.length) * 100);
+
+      return (
+        <>
+          <header className="header">
+            <div className="header-inner">
+              <div className="logo">V.A.L.E.U.R©</div>
+              <div className="user-menu">
+                <div className="user-avatar">{user.name[0].toUpperCase()}</div>
+                <button className="btn-logout" onClick={handleLogout}>Déconnexion</button>
+              </div>
+            </div>
+          </header>
+
+          <div className="progress-header">
+            <div className="progress-inner">
+              <div className="progress-label">
+                <span>Ta progression globale</span>
+                <span className="progress-percent">{progressPercent}%</span>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${progressPercent}%` }}></div>
+              </div>
+            </div>
+          </div>
+
+          <main className="main-content">
+            <div className="welcome">
+              <h1>Bienvenue {user.name} 🌿</h1>
+              <p>Continue ton chemin vers la libération de ton anxiété. Chaque module te rapproche de ta vraie nature.</p>
+            </div>
+
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-label">Modules complétés</div>
+                <div className="stat-value">{completedCount}/{MODULES.length}</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-label">Progression</div>
+                <div className="stat-value">{progressPercent}%</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-label">Semaines actives</div>
+                <div className="stat-value">1</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-label">Modules restants</div>
+                <div className="stat-value">{MODULES.length - completedCount}</div>
+              </div>
+            </div>
+
+            <h2 className="section-title">Tes modules</h2>
+            <div className="modules-grid">
+              {MODULES.map((module, idx) => {
+                const isCompleted = progress.completed.includes(module.id);
+                const isAvailable = module.id === 0 || progress.completed.includes(module.id - 1);
+                const isLocked = !isAvailable;
+
+                return (
+                  <div 
+                    key={module.id} 
+                    className={`module-card ${isLocked ? 'locked' : ''}`}
+                    style={{ '--module-color': module.color }}
+                  >
+                    <div className="module-header">
+                      <div className="module-number">M{module.id}</div>
+                      <div className="module-info">
+                        <h3>{module.title}</h3>
+                        <div className="module-duration">{module.duration}</div>
+                      </div>
+                    </div>
+                    <p className="module-description">{module.description}</p>
+                    <div className={`module-status ${
+                      isCompleted ? 'status-completed' : 
+                      isAvailable ? 'status-available' : 
+                      'status-locked'
+                    }`}>
+                      {isCompleted && <>✓ Terminé</>}
+                      {!isCompleted && isAvailable && <>▶ Disponible</>}
+                      {isLocked && <>🔒 Verrouillé</>}
+                    </div>
+                    <button 
+                      className="btn-module"
+                      onClick={() => openModule(module.id)}
+                      disabled={isLocked}
+                    >
+                      {isCompleted ? 'Revoir' : 'Commencer'} →
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="journal-widget">
+              <h3>📖 Journal de bord</h3>
+              <p>Tes réflexions quotidiennes t’aident à ancrer ta transformation</p>
+              <button className="btn-journal">Ouvrir mon journal</button>
+            </div>
+          </main>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Dashboard />);
   </script>
 </body>
 </html>
