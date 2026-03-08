@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V.A.L.E.U.R© — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --navy: #0a0f1a;
+      --navy-mid: #111827;
+      --navy-card: #1a2235;
+      --navy-border: #2a3650;
+      --gold: #c9a84c;
+      --gold-dark: #a07830;
+      --gold-light: #e8d08c;
+      --cream: #f7f3ee;
+      --text-light: #e2e8f0;
+      --text-muted: #94a3b8;
+      --rouge: #E74C3C;
+      --orange: #E67E22;
+      --jaune: #F1C40F;
+      --vert: #2ECC71;
+      --bleu: #3498DB;
+      --indigo: #8E44AD;
+      --violet: #9B59B6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--navy);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(201, 168, 76, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(201, 168, 76, 0.6); }
+    }
+
+    @keyframes shimmer {
+      from { background-position: -200% center; }
+      to { background-position: 200% center; }
+    }
+
+    /* LAYOUT */
+    .app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .app-header {
+      background: rgba(10, 15, 26, 0.95);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #000;
+      font-size: 18px;
+    }
+
+    .user-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--text-muted);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-logout:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 16px 24px;
+    }
+
+    .progress-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .progress-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .progress-percent {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 15px;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 10px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 48px 24px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    /* WELCOME SECTION */
+    .welcome-section {
+      margin-bottom: 48px;
+      animation: slideUp 0.6s ease;
+    }
+
+    .welcome-title {
+      font-size: clamp(32px, 5vw, 48px);
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .welcome-title .highlight {
+      color: var(--gold);
+    }
+
+    .welcome-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+      animation: slideUp 0.6s ease 0.2s both;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px rgba(201, 168, 76, 0.2);
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* MODULES GRID */
+    .section-title {
+      font-size: 32px;
+      color: var(--cream);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 32px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      border-radius: 2px;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      animation: slideUp 0.6s ease 0.4s both;
+    }
+
+    .module-card {
+      background: linear-gradient(135deg, var(--navy-card), var(--navy-mid));
+      border: 2px solid var(--navy-border);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .module-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(201, 168, 76, 0.05));
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .module-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .module-card:hover::before {
+      opacity: 1;
+    }
+
+    .module-card.locked {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .module-card.locked:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .module-card.completed {
+      border-color: var(--vert);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 0.8;
+    }
+
+    .module-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+
+    .module-status.completed {
+      background: var(--vert);
+      color: #000;
+    }
+
+    .module-status.locked {
+      background: rgba(148, 163, 184, 0.2);
+      color: var(--text-muted);
+    }
+
+    .module-title {
+      font-size: 24px;
+      color: var(--cream);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 20px;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-duration {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .btn-module {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-module:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
+    }
+
+    .btn-module.locked {
+      background: rgba(148, 163, 184, 0.2);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    .btn-module.locked:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* JOURNAL WIDGET */
+    .journal-widget {
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), var(--navy-card));
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 20px;
+      padding: 32px;
+      margin-top: 48px;
+      animation: slideUp 0.6s ease 0.6s both;
+    }
+
+    .journal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .journal-title {
+      font-size: 24px;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .journal-icon {
+      font-size: 28px;
+    }
+
+    .btn-journal {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-journal:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .journal-prompt {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* FOOTER */
+    .app-footer {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-wrap: wrap;
+      }
+
+      .user-info {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modules-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .main-content {
+        padding: 32px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // CONFIGURATION
+    const SUPABASE_URL = "https://ecetwkusxzbqoztokgtk.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_OAESsD6hq6D38azq6Pjxuw_28frwX6M";
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // DONNÉES DES MODULES
+    const MODULES = [
+      {
+        id: 0,
+        number: "M0",
+        title: "Comprendre",
+        desc: "Introduction à la méthode V.A.L.E.U.R© et découverte des 7 peurs universelles",
+        duration: "45 min",
+        color: "#c9a84c"
+      },
+      {
+        id: 1,
+        number: "M1",
+        title: "Anxiété",
+        desc: "Comprendre le mécanisme de l'anxiété et identifier tes déclencheurs",
+        duration: "60 min",
+        color: "#E74C3C"
+      },
+      {
+        id: 2,
+        number: "M2",
+        title: "Masques",
+        desc: "Les 7 masques protecteurs : Rouge, Orange, Jaune, Vert, Bleu, Indigo, Violet",
+        duration: "75 min",
+        color: "#E67E22"
+      },
+      {
+        id: 3,
+        number: "M3",
+        title: "Test",
+        desc: "Questionnaire diagnostic complet pour identifier ton masque dominant",
+        duration: "30 min",
+        color: "#F1C40F"
+      },
+      {
+        id: 4,
+        number: "M4",
+        title: "Observer",
+        desc: "Développer la conscience observatrice : voir sans être submergé",
+        duration: "60 min",
+        color: "#2ECC71"
+      },
+      {
+        id: 5,
+        number: "M5",
+        title: "Réconcilier",
+        desc: "De la peur à la valeur : unifier les parts en conflit",
+        duration: "90 min",
+        color: "#3498DB"
+      },
+      {
+        id: 6,
+        number: "M6",
+        title: "Ancrer",
+        desc: "Intégrer la transformation dans ta vie quotidienne",
+        duration: "60 min",
+        color: "#9B59B6"
+      }
+    ];
+
+    // COMPOSANT PRINCIPAL
+    function App() {
+      const [user, setUser] = useState(null);
+      const [progress, setProgress] = useState({ completed: [], current: 0 });
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        // Charger les données utilisateur
+        const loadUserData = () => {
+          try {
+            const email = localStorage.getItem('valeur_current_user');
+            if (!email) {
+              window.location.href = '../index.html';
+              return;
+            }
+
+            const name = localStorage.getItem(`valeur_${email}_name`) || email;
+            const savedProgress = localStorage.getItem(`valeur_${email}_progress`);
+            
+            setUser({ email, name });
+            
+            if (savedProgress) {
+              setProgress(JSON.parse(savedProgress));
+            }
+          } catch (error) {
+            console.error('Erreur chargement données:', error);
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        loadUserData();
+      }, []);
+
+      const handleLogout = () => {
+        localStorage.removeItem('valeur_current_user');
+        window.location.href = '../index.html';
+      };
+
+      const handleModuleClick = (moduleId) => {
+        if (moduleId > progress.current && !progress.completed.includes(moduleId)) {
+          alert('🔒 Ce module sera débloqué après avoir terminé le module précédent.');
+          return;
+        }
+        // Navigation vers le module (à implémenter)
+        window.location.href = `module-${moduleId}.html`;
+      };
+
+      const calculateProgress = () => {
+        return Math.round((progress.completed.length / MODULES.length) * 100);
+      };
+
+      const isModuleLocked = (moduleId) => {
+        return moduleId > progress.current && !progress.completed.includes(moduleId);
+      };
+
+      const isModuleCompleted = (moduleId) => {
+        return progress.completed.includes(moduleId);
+      };
+
+      if (loading) {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+            <div style={{ color: 'var(--gold)', fontSize: '24px' }}>Chargement...</div>
+          </div>
+        );
+      }
+
+      const progressPercent = calculateProgress();
+      const completedCount = progress.completed.length;
+      const totalModules = MODULES.length;
+
+      return (
+        <div className="app-container">
+          {/* HEADER */}
+          <header className="app-header">
+            <div className="header-inner">
+              <div className="logo">V.A.L.E.U.R©</div>
+              <div className="user-info">
+                <div className="user-avatar">{user.name.charAt(0).toUpperCase()}</div>
+                <div className="user-name">{user.name}</div>
+                <button className="btn-logout" onClick={handleLogout}>Se déconnecter</button>
+              </div>
+            </div>
+          </header>
+
+          {/* PROGRESS BAR */}
+          <div className="progress-bar">
+            <div className="progress-inner">
+              <div className="progress-label">
+                <span>Progression globale</span>
+                <span className="progress-percent">{progressPercent}%</span>
+              </div>
+              <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${progressPercent}%` }}></div>
+              </div>
+            </div>
+          </div>
+
+          {/* MAIN CONTENT */}
+          <main className="main-content">
+            {/* WELCOME */}
+            <div className="welcome-section">
+              <h1 className="welcome-title">
+                Bienvenue <span className="highlight">{user.name}</span> 👋
+              </h1>
+              <p className="welcome-subtitle">
+                Tu es sur le chemin de la libération. Chaque module t'aidera à comprendre, observer et transformer ton anxiété en force.
+              </p>
+            </div>
+
+            {/* STATS */}
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-icon">📚</div>
+                <div className="stat-value">{completedCount}/{totalModules}</div>
+                <div className="stat-label">Modules complétés</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">🔥</div>
+                <div className="stat-value">{progressPercent}%</div>
+                <div className="stat-label">Progression totale</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">⏱️</div>
+                <div className="stat-value">{Math.max(1, Math.ceil(completedCount * 1.5))}</div>
+                <div className="stat-label">Semaines actives</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">✨</div>
+                <div className="stat-value">{totalModules - completedCount}</div>
+                <div className="stat-label">Modules restants</div>
+              </div>
+            </div>
+
+            {/* MODULES */}
+            <h2 className="section-title">Parcours V.A.L.E.U.R©</h2>
+            <div className="modules-grid">
+              {MODULES.map((module) => {
+                const locked = isModuleLocked(module.id);
+                const completed = isModuleCompleted(module.id);
+
+                return (
+                  <div
+                    key={module.id}
+                    className={`module-card ${locked ? 'locked' : ''} ${completed ? 'completed' : ''}`}
+                    onClick={() => !locked && handleModuleClick(module.id)}
+                  >
+                    <div className="module-header">
+                      <div className="module-number" style={{ color: module.color }}>
+                        {module.number}
+                      </div>
+                      <div className={`module-status ${completed ? 'completed' : locked ? 'locked' : ''}`}>
+                        {completed ? '✓' : locked ? '🔒' : '▶'}
+                      </div>
+                    </div>
+                    <h3 className="module-title">{module.title}</h3>
+                    <p className="module-desc">{module.desc}</p>
+                    <div className="module-footer">
+                      <div className="module-duration">
+                        <span>⏱️</span>
+                        <span>{module.duration}</span>
+                      </div>
+                      <button className={`btn-module ${locked ? 'locked' : ''}`}>
+                        {completed ? 'Revoir' : locked ? 'Verrouillé' : 'Commencer'}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* JOURNAL */}
+            <div className="journal-widget">
+              <div className="journal-header">
+                <h3 className="journal-title">
+                  <span className="journal-icon">📝</span>
+                  Journal de bord
+                </h3>
+                <button className="btn-journal">Ouvrir le journal</button>
+              </div>
+              <p className="journal-prompt">
+                "Prendre quelques minutes chaque jour pour écrire transforme la compréhension intellectuelle en sagesse incarnée."
+              </p>
+            </div>
+          </main>
+
+          {/* FOOTER */}
+          <footer className="app-footer">
+            © {new Date().getFullYear()} Méthode V.A.L.E.U.R© — Céline Bourbon, Psychologue • Tous droits réservés
+          </footer>
+        </div>
+      );
+    }
+
+    // RENDER
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
